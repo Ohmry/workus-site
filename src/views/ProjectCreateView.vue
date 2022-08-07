@@ -1,15 +1,19 @@
 <template>
-  <main>
+  <div class="container">
     <AppNavigator />
-    This is HomeView.
-  </main>
+  </div>
 </template>
 
 <script>
 import AppNavigator from '@/components/AppNavigator.vue'
 export default {
+  name: 'ProjectCreateView',
   components: {
     AppNavigator
   }
 }
 </script>
+
+<style>
+
+</style>

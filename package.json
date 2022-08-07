@@ -1,5 +1,5 @@
 {
-  "name": "workus-site",
+  "name": "joins-pms-site",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,10 +8,20 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-brands-svg-icons": "^6.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/vue-fontawesome": "^2.0.8",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "normalize.css": "^8.0.1",
+    "noto-sans-kr": "^0.1.1",
+    "qrcode.vue": "^1.7.0",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -26,7 +36,9 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-vue": "^8.0.3",
+    "eslint-plugin-vue": "^9.2.0",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {

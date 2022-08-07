@@ -1,13 +1,15 @@
 <template>
-  <main>
+  <section class="view-container">
     <AppNavigator />
-    This is HomeView.
-  </main>
+    <nav></nav>
+    <main></main>
+  </section>
 </template>
 
 <script>
 import AppNavigator from '@/components/AppNavigator.vue'
 export default {
+  name: 'GroupView',
   components: {
     AppNavigator
   }
