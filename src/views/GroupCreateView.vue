@@ -8,15 +8,22 @@
       </header>
       <article>
         <h3>그룹 이름</h3>
-        <span data-type="caption">그룹의 이름을 입력해주세요.</span>
-        <input type="text" />
+        <input
+          type="text"
+          v-model="group.name"
+          placeholder="새로운 그룹의 이름"
+        />
       </article>
       <article>
         <h3>그룹 설명</h3>
-        <span data-type="caption">그룹에 대한 설명을 입력해주세요.</span>
-        <input type="text" placeholder="선택사항" />
+        <span data-type="caption">(선택)</span>
+        <input
+          type="text"
+          v-model="group.description"
+          placeholder="새로운 그룹에 대한 설명"
+        />
       </article>
-      <button>등록</button>
+      <button @click="createGroup">등록</button>
     </main>
   </div>
 </template>
@@ -27,6 +34,35 @@ export default {
   name: 'GroupCreateView',
   components: {
     AppNavigator
+  },
+  data: () => {
+    return {
+      group: {
+        name: '',
+        description: ''
+      }
+    }
+  },
+  methods: {
+    createGroup: function (e) {
+      this.$api
+        .post('/api/group', JSON.stringify(this.group))
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((err) => {
+          if (err.code === -997) {
+            this.$alert({
+              title: '그룹 생성 오류',
+              contents: '세션이 끊겼습니다. 로그인 후 다시 시도해주세요.',
+              callback: () => {
+                sessionStorage.removeItem('user')
+                this.$router.replace('/')
+              }
+            })
+          }
+        })
+    }
   }
 }
 </script>
@@ -45,11 +81,11 @@ div.container {
       margin: 40px 0 0 0;
 
       h2 {
-      margin: 20px 0 5px 0;
+        margin: 20px 0 5px 0;
       }
       span {
         font-size: 14px;
-        color: #6B6B6B;
+        color: #6b6b6b;
       }
     }
 
@@ -60,19 +96,22 @@ div.container {
       h3 {
         margin: 0 0 5px 0;
         padding: 0 0px;
+        display: inline-block;
+      }
+      span[data-type='caption'] {
+        font-size: 14px;
+        color: #6b6b6b;
+        margin: 0 0 0 10px;
       }
       input {
         outline: 0;
         border: 0;
         width: 390px;
-        border-bottom: 1px solid #6B6B6B;
+        border-bottom: 1px solid #6b6b6b;
         background-color: transparent;
         margin: 15px 0 0 0;
         padding: 10px 5px;
-      }
-      span[data-type=caption] {
-        font-size: 14px;
-        color: #6B6B6B;
+        display: block;
       }
     }
 
@@ -83,6 +122,7 @@ div.container {
       width: 400px;
       font-size: 16px;
       padding: 10px;
+      border-radius: 5px;
       &:hover {
         cursor: pointer;
       }

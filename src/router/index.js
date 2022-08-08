@@ -7,6 +7,7 @@ import ProjectView from '@/views/ProjectView.vue'
 import ProjectCreateView from '@/views/ProjectCreateView.vue'
 import SignupView from '@/views/SignupView.vue'
 import SigninView from '@/views/SigninView.vue'
+import axios from 'axios'
 
 Vue.use(VueRouter)
 
@@ -55,27 +56,44 @@ const router = new VueRouter({
 })
 
 router.beforeEach(function (to, from, next) {
+  axios({
+    method: 'get',
+    url: '/api/user',
+    baseURL: 'http://172.29.58.175:9091',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then((response) => {
+      const data = response.data
+      data.status = response.status
+      console.log(data)
+    })
+    .catch((error) => {
+      const data = error.response.data
+      data.status = error.response.status
+      console.log(data)
+    })
+
   const userInfo = JSON.parse(sessionStorage.getItem('user'))
   if (to.path === '/') {
-    if (userInfo !== null && userInfo.accessToken.length > 0) {
+    if (userInfo === null) {
+      next()
+    } else {
       next({
         path: '/explore',
-        replace: true
+        replace: false
       })
-    } else {
-      next()
     }
   } else if (to.path === '/signup') {
     next()
+  } else if (userInfo === null) {
+    next({
+      path: '/',
+      replace: true
+    })
   } else {
-    if (userInfo === null || userInfo.accessToken.length < 1) {
-      next({
-        path: '/',
-        replace: true
-      })
-    } else {
-      next()
-    }
+    next()
   }
 })
 

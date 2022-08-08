@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import api from '@/modules/api'
-import 'noto-sans-kr/styles.css'
 import 'normalize.css'
 import './components/installer'
 

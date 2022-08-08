@@ -155,14 +155,7 @@ export default {
       this.$api
         .post('/api/signin', JSON.stringify(signinInfo))
         .then(response => {
-          console.log(response)
-          sessionStorage.setItem('user', JSON.stringify({
-            id: response.data.id,
-            email: response.data.email,
-            name: response.data.name,
-            accessToken: response.data.token.accessToken,
-            refreshToken: response.data.token.refreshToken
-          }))
+          sessionStorage.setItem('user', JSON.stringify(response))
           this.$router.replace('/explore')
         })
         .catch(err => {

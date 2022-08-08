@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-  baseUrl: 'http://localhost:9091',
+  baseUrl: 'http://172.29.58.175:9091',
   get: function (uri) {
     return new Promise((resolve, reject) => {
       axios({
