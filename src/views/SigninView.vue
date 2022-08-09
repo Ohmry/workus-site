@@ -19,17 +19,43 @@
         <transition name="slide-fade">
           <article v-if="isStandard" class="standard-signin">
             <font-awesome-icon icon="fa-regular fa-user"></font-awesome-icon>
-            <input ref="standardEmail" type="email" placeholder="이메일 주소" v-model="form.standard.email" />
-            <font-awesome-icon icon="fa-regular fa-keyboard"></font-awesome-icon>
-            <input ref="standardPassword" type="password" placeholder="비밀번호" v-model="form.standard.password" @keyup.enter="signin"/>
+            <input
+              ref="standardEmail"
+              type="email"
+              placeholder="이메일 주소"
+              v-model="form.standard.email"
+            />
+            <font-awesome-icon
+              icon="fa-regular fa-keyboard"
+            ></font-awesome-icon>
+            <input
+              ref="standardPassword"
+              type="password"
+              placeholder="비밀번호"
+              v-model="form.standard.password"
+              @keyup.enter="signin"
+            />
           </article>
         </transition>
         <transition name="slide-fade">
           <article v-if="isLdap" class="ldap-signin">
-          <font-awesome-icon icon="fa-regular fa-user"></font-awesome-icon>
-            <input ref="ldapEmail" type="email" placeholder="그룹웨어 계정" v-model="form.ldap.email" />
-            <font-awesome-icon icon="fa-regular fa-keyboard"></font-awesome-icon>
-            <input ref="ldapPassword" type="password" placeholder="비밀번호" v-model="form.ldap.password" @keyup.enter="signin"/>
+            <font-awesome-icon icon="fa-regular fa-user"></font-awesome-icon>
+            <input
+              ref="ldapEmail"
+              type="email"
+              placeholder="그룹웨어 계정"
+              v-model="form.ldap.email"
+            />
+            <font-awesome-icon
+              icon="fa-regular fa-keyboard"
+            ></font-awesome-icon>
+            <input
+              ref="ldapPassword"
+              type="password"
+              placeholder="비밀번호"
+              v-model="form.ldap.password"
+              @keyup.enter="signin"
+            />
           </article>
         </transition>
         <button class="btn-signin" @click="signin">로그인</button>
@@ -151,14 +177,15 @@ export default {
     },
     signin: function (e) {
       if (this.validate() === false) return false
-      const signinInfo = this.type === 'standard' ? this.form.standard : this.form.ldap
+      const signinInfo =
+        this.type === 'standard' ? this.form.standard : this.form.ldap
       this.$api
         .post('/api/signin', JSON.stringify(signinInfo))
-        .then(response => {
+        .then((response) => {
           sessionStorage.setItem('user', JSON.stringify(response))
           this.$router.replace('/explore')
         })
-        .catch(err => {
+        .catch((err) => {
           this.$alert({
             title: '로그인 실패 (' + err.code + ')',
             contents: err.message
@@ -191,7 +218,7 @@ section.container {
   main {
     height: 330px;
     align-self: center;
-    border: 1px solid #CDCDCD;
+    border: 1px solid #cdcdcd;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
@@ -274,7 +301,7 @@ section.container {
       svg {
         position: absolute;
         margin: 30px 0 0 5px;
-        color: #6B6B6B;
+        color: #6b6b6b;
       }
 
       input {
@@ -283,7 +310,7 @@ section.container {
         background-color: transparent;
         display: block;
         font-size: 16px;
-        border-bottom: 1px solid #6B6B6B;
+        border-bottom: 1px solid #6b6b6b;
         padding: 10px 35px;
         margin-top: 20px;
         outline: 0;
@@ -294,11 +321,11 @@ section.container {
 
   .slide-fade-enter,
   .slide-fade-leave {
-    transition: all .1s ease;
+    transition: all 0.1s ease;
   }
   .slide-fade-leave-active,
   .slide-fade-enter-active {
-    transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
   }
   .slide-fade-enter,
   .slide-fade-leave-to {

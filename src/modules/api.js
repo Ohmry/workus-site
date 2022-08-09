@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-  baseUrl: 'http://172.29.58.175:9091',
+  baseUrl: 'http://localhost:9091',
   get: function (uri) {
     return new Promise((resolve, reject) => {
       axios({
@@ -9,9 +9,9 @@ export default {
         url: uri,
         baseURL: this.baseUrl,
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken')
-        }
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
       })
         .then((response) => {
           const data = response.data
@@ -34,12 +34,17 @@ export default {
         data: payload,
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        withCredentials: true
       })
         .then((response) => {
-          const data = response.data
-          data.status = response.status
-          resolve(data)
+          if (response.data.length > 0) {
+            const data = response.data
+            data.status = response.status
+            resolve(data)
+          } else {
+            resolve(response.data)
+          }
         })
         .catch((error) => {
           let data = {}
@@ -64,7 +69,8 @@ export default {
         data: payload,
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        withCredentials: true
       })
         .then((response) => {
           const data = response.data
@@ -86,7 +92,8 @@ export default {
         baseURL: this.baseUrl,
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        withCredentials: true
       })
         .then((response) => {
           const data = response.data

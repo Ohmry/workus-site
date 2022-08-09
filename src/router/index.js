@@ -59,42 +59,49 @@ router.beforeEach(function (to, from, next) {
   axios({
     method: 'get',
     url: '/api/user',
-    baseURL: 'http://172.29.58.175:9091',
+    baseURL: 'http://localhost:9091',
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      Accept: '/'
+    },
+    withCredentials: true
   })
     .then((response) => {
-      const data = response.data
-      data.status = response.status
-      console.log(data)
+      const userInfo = response.data
+      Vue.$cookies.set('JSESSIONID', userInfo.sessionId)
+      sessionStorage.setItem('user', JSON.stringify(userInfo))
+
+      if (to.path === '/') {
+        if (userInfo.id === null) {
+          next()
+        } else {
+          next({
+            path: '/explore',
+            replace: true
+          })
+        }
+      } else if (to.path === '/signup') {
+        next()
+      } else if (userInfo.id === null) {
+        next({
+          path: '/',
+          replace: true
+        })
+      } else {
+        next()
+      }
     })
     .catch((error) => {
       const data = error.response.data
       data.status = error.response.status
-      console.log(data)
-    })
+      console.error(data)
 
-  const userInfo = JSON.parse(sessionStorage.getItem('user'))
-  if (to.path === '/') {
-    if (userInfo === null) {
-      next()
-    } else {
       next({
-        path: '/explore',
-        replace: false
+        path: '/',
+        replace: true
       })
-    }
-  } else if (to.path === '/signup') {
-    next()
-  } else if (userInfo === null) {
-    next({
-      path: '/',
-      replace: true
     })
-  } else {
-    next()
-  }
 })
 
 export default router

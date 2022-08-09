@@ -6,6 +6,7 @@ import axios from 'axios'
 import api from '@/modules/api'
 import 'normalize.css'
 import './components/installer'
+import VueCookies from 'vue-cookies'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -51,6 +52,8 @@ Vue.config.productionTip = false
 Vue.prototype.$api = api
 Vue.prototype.$axios = axios
 Vue.prototype.$apiUrl = 'http://localhost:9091'
+
+Vue.use(VueCookies)
 
 new Vue({
   router,

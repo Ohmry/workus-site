@@ -39,10 +39,15 @@ export default {
       this.$confirm({
         title: '로그아웃',
         contents: '로그아웃 하시겠습니까?',
-        callback: result => {
+        callback: (result) => {
           if (result) {
-            sessionStorage.removeItem('user')
-            this.$router.replace('/')
+            this.$api
+              .post('/api/signout', null)
+              .then((response) => {
+                sessionStorage.removeItem('user')
+                this.$router.replace('/')
+              })
+              .catch((err) => console.error(err))
           }
         }
       })

@@ -7,17 +7,36 @@
       <section class="signup-form">
         <article>
           <h4>이메일 주소</h4>
-          <input ref="inputEmail" type="email" v-model="user.email" />
+          <span data-type="caption" v-if="this.form.invalidEmail">이메일의 형식이 올바르지 않습니다.</span>
+          <span data-type="caption" v-if="this.form.existsEmail">이미 사용 중인 이메일 주소입니다.</span>
+          <input
+            ref="inputEmail"
+            type="email"
+            v-model="user.email"
+            @change="validateUserEmail"
+          />
           <!-- <span data-type="caption">이미 사용 중인 이메일 주소입니다.</span> -->
         </article>
         <article>
           <h4>비밀번호</h4>
-          <input ref="inputPassword" type="password" v-model="user.password" @change="checkPasswordConfirm"/>
+          <input
+            ref="inputPassword"
+            type="password"
+            v-model="user.password"
+            @change="checkPasswordConfirm"
+          />
         </article>
         <article>
           <h4>비밀번호 확인</h4>
-          <input ref="inputPasswordConfirm" type="password" v-model="user.passwordConfirm" @change="checkPasswordConfirm"/>
-          <span data-type="caption" v-if="!form.equalsPassword">비밀번호가 올바르지 않습니다.</span>
+          <input
+            ref="inputPasswordConfirm"
+            type="password"
+            v-model="user.passwordConfirm"
+            @change="checkPasswordConfirm"
+          />
+          <span data-type="caption" v-if="!form.equalsPassword"
+            >비밀번호가 올바르지 않습니다.</span
+          >
         </article>
         <article>
           <h4>사용자 이름</h4>
@@ -42,6 +61,8 @@ export default {
         name: ''
       },
       form: {
+        invalidEmail: false,
+        existsEmail: false,
         equalsPassword: true
       }
     }
@@ -53,35 +74,45 @@ export default {
       if (this.user.email.length < 1) {
         this.$alert({
           contents: '이메일 주소를 입력해주세요',
-          callback: () => { view.$refs.inputEmail.focus() }
+          callback: () => {
+            view.$refs.inputEmail.focus()
+          }
         })
         return false
       }
       if (this.user.password.length < 1) {
         this.$alert({
           contents: '비밀번호를 입력해주세요.',
-          callback: () => { view.$refs.inputPassword.focus() }
+          callback: () => {
+            view.$refs.inputPassword.focus()
+          }
         })
         return false
       }
       if (this.user.passwordConfirm.length < 1) {
         this.$alert({
           contents: '비밀번호 확인란을 입력해주세요.',
-          callback: () => { view.$refs.inputPasswordConfirm.focus() }
+          callback: () => {
+            view.$refs.inputPasswordConfirm.focus()
+          }
         })
         return false
       }
       if (!this.form.equalsPassword) {
         this.$alert({
           contents: '비밀번호와 비밀번호 확인의 값이 동일하지 않습니다.',
-          callback: () => { view.$refs.inputPasswordConfirm.focus() }
+          callback: () => {
+            view.$refs.inputPasswordConfirm.focus()
+          }
         })
         return false
       }
       if (this.user.name.length < 1) {
         this.$alert({
           contents: '사용자 이름을 입력해주세요.',
-          callback: () => { view.$refs.inputName.focus() }
+          callback: () => {
+            view.$refs.inputName.focus()
+          }
         })
         return false
       }
@@ -89,8 +120,9 @@ export default {
     },
     signup: function () {
       if (this.validate() === false) return
-      this.$api.post('/api/signup', JSON.stringify(this.user))
-        .then(response => {
+      this.$api
+        .post('/api/signup', JSON.stringify(this.user))
+        .then((response) => {
           this.$alert({
             title: '사용자 등록 완료',
             contents:
@@ -98,7 +130,7 @@ export default {
             callback: () => this.$router.replace('/')
           })
         })
-        .catch(err => {
+        .catch((err) => {
           this.$alert({
             title: '사용자 등록 오류 (' + err.code + ')',
             contents: err.message
@@ -112,7 +144,17 @@ export default {
       }
       const view = this
       const equals = this.user.password === this.user.passwordConfirm
-      setTimeout(() => { view.form.equalsPassword = equals }, 500)
+      setTimeout(() => {
+        view.form.equalsPassword = equals
+      }, 500)
+    },
+    validateUserEmail: function () {
+      const emailRegex = /^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+      if (this.user.email && !emailRegex.test(this.user.email)) {
+        this.form.invalidEmail = true
+      } else {
+        this.form.invalidEmail = false
+      }
     }
   }
 }
@@ -141,20 +183,31 @@ div.container {
     width: 400px;
     padding: 0 30px 30px 30px;
     align-self: center;
+    border: 1px solid #cdcdcd;
+    border-radius: 5px;
+    box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
+    -webkit-box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
+    -moz-box-shadow: 10px 10px 20px rgba(000, 000, 000, 0.2);
+    -o-box-shadow: 10px 10px 20px rgba(000, 000, 000, 0.2);
+    -ms-box-shadow: 10px 10px 20px rgba(000, 000, 000, 0.2);
 
     article {
       margin: 40px 0 0 0;
-      height: 80px;
+      svg {
+        align-self: center;
+        margin: 0 15px 0 0;
+        font-size: 18px;
+      }
       h4 {
-        margin: 0 0 5px 0;
-        padding: 0 5px;
+        margin: 0 10px 0 5px;
+        display: inline-block;
       }
       input {
         outline: 0;
         border: 0;
-        border-bottom: 1px solid #6B6B6B;
+        border-bottom: 1px solid #C9C9C9;
         background-color: transparent;
-        padding: 10px 10px;
+        padding: 10px 5px;
         width: 380px;
       }
       span[data-type=caption] {
@@ -172,7 +225,7 @@ div.container {
       padding: 15px;
       font-size: 18px;
       border-radius: 5px;
-      margin: 50px 0 10px 0;
+      margin: 30px 0 20px 0;
       &:hover {
         cursor: pointer;
       }
@@ -181,7 +234,7 @@ div.container {
       }
     }
 
-    a[data-type=link] {
+    a[data-type='link'] {
       font-size: 14px;
     }
   }
