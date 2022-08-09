@@ -14,9 +14,10 @@ export default {
         withCredentials: true
       })
         .then((response) => {
-          const data = response.data
-          data.status = response.status
-          resolve(data)
+          const result = {}
+          result.status = response.status
+          result.data = response.data
+          resolve(result)
         })
         .catch((error) => {
           const data = error.response.data

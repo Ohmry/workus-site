@@ -7,8 +7,12 @@
       <section class="signup-form">
         <article>
           <h4>이메일 주소</h4>
-          <span data-type="caption" v-if="this.form.invalidEmail">이메일의 형식이 올바르지 않습니다.</span>
-          <span data-type="caption" v-if="this.form.existsEmail">이미 사용 중인 이메일 주소입니다.</span>
+          <span data-type="caption" v-if="this.form.invalidEmail"
+            >이메일의 형식이 올바르지 않습니다.</span
+          >
+          <span data-type="caption" v-if="this.form.existsEmail"
+            >이미 사용 중인 이메일 주소입니다.</span
+          >
           <input
             ref="inputEmail"
             type="email"
@@ -149,12 +153,27 @@ export default {
       }, 500)
     },
     validateUserEmail: function () {
-      const emailRegex = /^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
-      if (this.user.email && !emailRegex.test(this.user.email)) {
+      const emailRegex =
+        /^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+      if (!this.user.email) {
+        this.form.invalidEmail = false
+        this.form.existsEmail = false
+        return
+      } else if (!emailRegex.test(this.user.email)) {
         this.form.invalidEmail = true
+        return
       } else {
         this.form.invalidEmail = false
       }
+
+      this.$api
+        .get('/api/signup/exists-email/' + this.user.email)
+        .then((response) => {
+          this.form.existsEmail = response.data
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     }
   }
 }
@@ -205,12 +224,12 @@ div.container {
       input {
         outline: 0;
         border: 0;
-        border-bottom: 1px solid #C9C9C9;
+        border-bottom: 1px solid #c9c9c9;
         background-color: transparent;
         padding: 10px 5px;
         width: 380px;
       }
-      span[data-type=caption] {
+      span[data-type='caption'] {
         font-size: 14px;
         color: var(--primary-color);
       }
