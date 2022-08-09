@@ -1,6 +1,6 @@
 <template>
   <nav>
-      <a href="/explore" data-type="logo">WORKUS</a>
+      <a href="/" data-type="logo">WORKUS</a>
       <span class="divider"></span>
       <router-link v-for="(menu, index) in application.menus" :key="index" :to="menu.uri">
         <button>
@@ -33,7 +33,6 @@ export default {
       },
       application: {
         menus: [
-          { label: '둘러보기', uri: '/explore' },
           { label: '그룹', uri: '/group' },
           { label: '프로젝트', uri: '/project' }
         ],

@@ -20,7 +20,9 @@ import {
   faBuilding,
   faCaretRight,
   faBell,
-  faCube
+  faCube,
+  faBookBookmark,
+  faUserGroup
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -38,7 +40,9 @@ library.add(
   faBuilding,
   faCaretRight,
   faBell,
-  faCube
+  faCube,
+  faBookBookmark,
+  faUserGroup
 )
 
 library.add(

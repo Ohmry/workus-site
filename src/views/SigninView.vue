@@ -183,7 +183,7 @@ export default {
         .post('/api/signin', JSON.stringify(signinInfo))
         .then((response) => {
           sessionStorage.setItem('user', JSON.stringify(response))
-          this.$router.replace('/explore')
+          this.$router.replace('/')
         })
         .catch((err) => {
           this.$alert({

@@ -7,18 +7,15 @@ import ProjectView from '@/views/ProjectView.vue'
 import ProjectCreateView from '@/views/ProjectCreateView.vue'
 import SignupView from '@/views/SignupView.vue'
 import SigninView from '@/views/SigninView.vue'
-import axios from 'axios'
+import ServerErrorView from '@/views/ServerErrorView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
+import api from '@/modules/api'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'signin',
-    component: SigninView
-  },
-  {
-    path: '/explore',
     name: 'explore',
     component: ExploreView
   },
@@ -46,6 +43,21 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignupView
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: SigninView
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: ServerErrorView
+  },
+  {
+    path: '/404',
+    name: 'notFound',
+    component: NotFoundView
   }
 ]
 
@@ -56,52 +68,39 @@ const router = new VueRouter({
 })
 
 router.beforeEach(function (to, from, next) {
-  axios({
-    method: 'get',
-    url: '/api/user',
-    baseURL: 'http://localhost:9091',
-    headers: {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache',
-      Accept: '/'
-    },
-    withCredentials: true
-  })
-    .then((response) => {
-      const userInfo = response.data
-      Vue.$cookies.set('JSESSIONID', userInfo.sessionId)
-      sessionStorage.setItem('user', JSON.stringify(userInfo))
-
-      if (to.path === '/') {
+  const route = routes.find(route => route.path === to.path)
+  if (route === undefined) {
+    next({
+      path: '/404',
+      replace: true
+    })
+  }
+  if (to.path === '/error' || to.path === '/signup' || to.path === '/signin') {
+    next()
+  } else {
+    api
+      .get('/api/user')
+      .then(response => {
+        const userInfo = response.data
+        Vue.$cookies.set('JSESSIONID', userInfo.sessionId)
+        sessionStorage.setItem('user', JSON.stringify(userInfo))
         if (userInfo.id === null) {
-          next()
-        } else {
           next({
-            path: '/explore',
+            path: '/signin',
             replace: true
           })
+        } else {
+          next()
         }
-      } else if (to.path === '/signup') {
-        next()
-      } else if (userInfo.id === null) {
+      })
+      .catch(err => {
+        console.error(err)
         next({
-          path: '/',
+          path: '/error',
           replace: true
         })
-      } else {
-        next()
-      }
-    })
-    .catch((error) => {
-      const data = error.response.data
-      data.status = error.response.status
-      console.error(data)
-
-      next({
-        path: '/',
-        replace: true
       })
-    })
+  }
 })
 
 export default router

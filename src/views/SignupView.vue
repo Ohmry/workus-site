@@ -84,6 +84,24 @@ export default {
         })
         return false
       }
+      if (this.form.invalidEmail) {
+        this.$alert({
+          contents: '이메일 형식이 올바르지 않습니다.',
+          callback: () => {
+            view.$refs.inputEmail.focus()
+          }
+        })
+        return false
+      }
+      if (this.form.existsEmail) {
+        this.$alert({
+          contents: '이미 존재하는 이메일입니다. 다른 이메일 주소를 입력해주세요.',
+          callback: () => {
+            view.$refs.inputEmail.focus()
+          }
+        })
+        return false
+      }
       if (this.user.password.length < 1) {
         this.$alert({
           contents: '비밀번호를 입력해주세요.',
@@ -131,7 +149,7 @@ export default {
             title: '사용자 등록 완료',
             contents:
               '사용자 등록이 완료되었습니다. 로그인 화면으로 이동합니다.',
-            callback: () => this.$router.replace('/')
+            callback: () => this.$router.replace('/signin')
           })
         })
         .catch((err) => {

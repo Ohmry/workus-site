@@ -45,7 +45,7 @@ export default {
               .post('/api/signout', null)
               .then((response) => {
                 sessionStorage.removeItem('user')
-                this.$router.replace('/')
+                this.$router.replace('/signin')
               })
               .catch((err) => console.error(err))
           }

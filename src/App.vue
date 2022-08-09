@@ -40,6 +40,7 @@ export default {
 }
 #app {
   height: 100vh;
+  min-width: 800px;
   background-color: var(--background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: auto;

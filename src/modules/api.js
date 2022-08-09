@@ -20,8 +20,15 @@ export default {
           resolve(result)
         })
         .catch((error) => {
-          const data = error.response.data
-          data.status = error.response.status
+          let data = {}
+          if (error.code === 'ERR_NETWORK') {
+            data.code = error.code
+            data.status = 0
+            data.message = '통신 오류'
+          } else {
+            data = error.response.data
+            data.status = error.response.status
+          }
           reject(data)
         })
     })
@@ -39,13 +46,10 @@ export default {
         withCredentials: true
       })
         .then((response) => {
-          if (response.data.length > 0) {
-            const data = response.data
-            data.status = response.status
-            resolve(data)
-          } else {
-            resolve(response.data)
-          }
+          const result = {}
+          result.status = response.status
+          result.data = response.data
+          resolve(result)
         })
         .catch((error) => {
           let data = {}
@@ -74,13 +78,21 @@ export default {
         withCredentials: true
       })
         .then((response) => {
-          const data = response.data
-          data.status = response.status
-          resolve(data)
+          const result = {}
+          result.status = response.status
+          result.data = response.data
+          resolve(result)
         })
         .catch((error) => {
-          const data = error.response.data
-          data.status = error.response.status
+          let data = {}
+          if (error.code === 'ERR_NETWORK') {
+            data.code = error.code
+            data.status = 0
+            data.message = '통신 오류'
+          } else {
+            data = error.response.data
+            data.status = error.response.status
+          }
           reject(data)
         })
     })
@@ -97,13 +109,21 @@ export default {
         withCredentials: true
       })
         .then((response) => {
-          const data = response.data
-          data.status = response.status
-          resolve(data)
+          const result = {}
+          result.status = response.status
+          result.data = response.data
+          resolve(result)
         })
         .catch((error) => {
-          const data = error.response.data
-          data.status = error.response.status
+          let data = {}
+          if (error.code === 'ERR_NETWORK') {
+            data.code = error.code
+            data.status = 0
+            data.message = '통신 오류'
+          } else {
+            data = error.response.data
+            data.status = error.response.status
+          }
           reject(data)
         })
     })
