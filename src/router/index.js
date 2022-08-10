@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import ExploreView from '@/views/ExploreView.vue'
+import MainView from '@/views/MainView.vue'
 import GroupView from '@/views/GroupView.vue'
 import GroupCreateView from '@/views/GroupCreateView.vue'
 import ProjectView from '@/views/ProjectView.vue'
@@ -16,8 +16,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'explore',
-    component: ExploreView
+    name: 'main',
+    component: MainView
   },
   {
     path: '/group',
@@ -68,39 +68,47 @@ const router = new VueRouter({
 })
 
 router.beforeEach(function (to, from, next) {
-  const route = routes.find(route => route.path === to.path)
+  const route = routes.find((route) => route.path === to.path)
   if (route === undefined) {
     next({
       path: '/404',
-      replace: true
+      replace: false
     })
+    return
   }
-  if (to.path === '/error' || to.path === '/signup' || to.path === '/signin') {
+
+  if (
+    to.path === '/error' ||
+    to.path === '/signup' ||
+    to.path === '/signin' ||
+    to.path === '/404'
+  ) {
     next()
-  } else {
-    api
-      .get('/api/user')
-      .then(response => {
-        const userInfo = response.data
-        Vue.$cookies.set('JSESSIONID', userInfo.sessionId)
-        sessionStorage.setItem('user', JSON.stringify(userInfo))
-        if (userInfo.id === null) {
-          next({
-            path: '/signin',
-            replace: true
-          })
-        } else {
-          next()
-        }
-      })
-      .catch(err => {
-        console.error(err)
+    return
+  }
+
+  api
+    .get('/api/user')
+    .then((response) => {
+      const userInfo = response.data
+      Vue.$cookies.set('JSESSIONID', userInfo.sessionId)
+      sessionStorage.setItem('user', JSON.stringify(userInfo))
+      if (userInfo.id === null) {
         next({
-          path: '/error',
+          path: '/signin',
           replace: true
         })
+      } else {
+        next()
+      }
+    })
+    .catch((err) => {
+      console.error(err)
+      next({
+        path: '/error',
+        replace: true
       })
-  }
+    })
 })
 
 export default router

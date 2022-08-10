@@ -33,6 +33,7 @@ export default {
       },
       application: {
         menus: [
+          { label: '내 업무', uri: '/' },
           { label: '그룹', uri: '/group' },
           { label: '프로젝트', uri: '/project' }
         ],

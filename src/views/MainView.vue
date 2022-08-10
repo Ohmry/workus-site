@@ -8,7 +8,7 @@
             <span>최근 열람한 프로젝트</span>
             <button @click="goToProjectCreate">새 프로젝트</button>
           </article>
-          <span data-type="caption">프로젝트가 존재하지 않습니다.</span>
+          <span data-type="caption" v-if="recentProjects.length < 1">프로젝트가 존재하지 않습니다.</span>
           <ul>
             <li v-for="(project, index) in recentProjects" :key="index">
               <font-awesome-icon icon="fa-solid fa-caret-right"></font-awesome-icon>
@@ -20,7 +20,7 @@
             <span>내가 속한 그룹</span>
             <button @click="goToGroupCreate">새 그룹</button>
           </article>
-          <span data-type="caption">내가 속해있는 그룹이 존재하지 않습니다.</span>
+          <span data-type="caption" v-if="belongGroups.length < 1">내가 속해있는 그룹이 존재하지 않습니다.</span>
           <ul>
             <li v-for="(group, index) in belongGroups" :key="index">
               <font-awesome-icon icon="fa-solid fa-caret-right"></font-awesome-icon>
@@ -75,22 +75,22 @@
 import AppNavigator from '@/components/AppNavigator.vue'
 
 export default {
-  name: 'ExploreView',
+  name: 'MainView',
   components: {
     AppNavigator
   },
   data: () => {
     return {
       recentProjects: [
-        // { title: '메가박스 포인트 부분 사용' },
-        // { title: '페이즈 금액권 기능 개발' },
-        // { title: '삼성페이 멤버십 연동' }
+        { title: '메가박스 포인트 부분 사용' },
+        { title: '페이즈 금액권 기능 개발' },
+        { title: '삼성페이 멤버십 연동' }
       ],
       belongGroups: [
-        // { name: '메가박스' },
-        // { name: '스크린개발팀' },
-        // { name: '운영파트' },
-        // { name: '모바일오더 프로젝트 그룹' }
+        { name: '메가박스' },
+        { name: '스크린개발팀' },
+        { name: '운영파트' },
+        { name: '모바일오더 프로젝트 그룹' }
       ]
     }
   },
