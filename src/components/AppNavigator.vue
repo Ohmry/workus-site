@@ -33,9 +33,10 @@ export default {
       },
       application: {
         menus: [
-          { label: '내 업무', uri: '/' },
+          { label: '내 업무', uri: '/overview' },
           { label: '그룹', uri: '/group' },
-          { label: '프로젝트', uri: '/project' }
+          { label: '프로젝트', uri: '/project' },
+          { label: '이슈', uri: '/issue' }
         ],
         myMenu: {
           visible: false

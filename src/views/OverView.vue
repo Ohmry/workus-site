@@ -75,7 +75,7 @@
 import AppNavigator from '@/components/AppNavigator.vue'
 
 export default {
-  name: 'MainView',
+  name: 'OverView',
   components: {
     AppNavigator
   },

@@ -14,7 +14,7 @@ export default {
   name: 'ServerErrorView',
   methods: {
     refresh: function () {
-      this.$router.replace('/')
+      this.$router.push('/')
     }
   }
 }

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MainView from '@/views/MainView.vue'
+import OverView from '@/views/OverView.vue'
 import GroupView from '@/views/GroupView.vue'
 import GroupCreateView from '@/views/GroupCreateView.vue'
 import ProjectView from '@/views/ProjectView.vue'
@@ -9,15 +9,19 @@ import SignupView from '@/views/SignupView.vue'
 import SigninView from '@/views/SigninView.vue'
 import ServerErrorView from '@/views/ServerErrorView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
-import api from '@/modules/api'
+// import api from '@/modules/api'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'main',
-    component: MainView
+    redirect: '/overview'
+  },
+  {
+    path: '/overview',
+    name: 'overView',
+    component: OverView
   },
   {
     path: '/group',
@@ -68,47 +72,48 @@ const router = new VueRouter({
 })
 
 router.beforeEach(function (to, from, next) {
-  const route = routes.find((route) => route.path === to.path)
-  if (route === undefined) {
-    next({
-      path: '/404',
-      replace: false
-    })
-    return
-  }
+  next()
+  // const route = routes.find((route) => route.path === to.path)
+  // if (route === undefined) {
+  //   next({
+  //     path: '/404',
+  //     replace: false
+  //   })
+  //   return
+  // }
 
-  if (
-    to.path === '/error' ||
-    to.path === '/signup' ||
-    to.path === '/signin' ||
-    to.path === '/404'
-  ) {
-    next()
-    return
-  }
+  // if (
+  //   to.path === '/error' ||
+  //   to.path === '/signup' ||
+  //   to.path === '/signin' ||
+  //   to.path === '/404'
+  // ) {
+  //   next()
+  //   return
+  // }
 
-  api
-    .get('/api/user')
-    .then((response) => {
-      const userInfo = response.data
-      Vue.$cookies.set('JSESSIONID', userInfo.sessionId)
-      sessionStorage.setItem('user', JSON.stringify(userInfo))
-      if (userInfo.id === null) {
-        next({
-          path: '/signin',
-          replace: true
-        })
-      } else {
-        next()
-      }
-    })
-    .catch((err) => {
-      console.error(err)
-      next({
-        path: '/error',
-        replace: true
-      })
-    })
+  // api
+  //   .get('/api/user')
+  //   .then((response) => {
+  //     const userInfo = response.data
+  //     Vue.$cookies.set('JSESSIONID', userInfo.sessionId)
+  //     sessionStorage.setItem('user', JSON.stringify(userInfo))
+  //     if (userInfo.id === null) {
+  //       next({
+  //         path: '/signin',
+  //         replace: true
+  //       })
+  //     } else {
+  //       next()
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.error(err)
+  //     next({
+  //       path: '/error',
+  //       replace: true
+  //     })
+  //   })
 })
 
 export default router

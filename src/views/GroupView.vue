@@ -1,28 +1,44 @@
 <template>
-  <div class="container">
+  <div class="wrapper">
     <AppNavigator />
-    <header>
-      <h2>그룹</h2>
-      <button>그룹 생성</button>
-    </header>
-    <main>
-      <ul>
-        <li v-for="(group, index) in groups" :key="index">
-          <div class="group-container">
-            <div class="group-info">
-              <a>{{ group.name }}</a>
-              <span>{{ group.description }}</span>
-            </div>
-            <div class="group-badge">
-              <font-awesome-icon icon="fa-solid fa-book-bookmark" data-type="alarm"></font-awesome-icon>
-              <span>{{ group.projectCount }}</span>
-              <font-awesome-icon icon="fa-solid fa-user-group" data-type="alarm"></font-awesome-icon>
-              <span>{{ group.userCount }}</span>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </main>
+    <div class="container">
+      <aside>This is Aside</aside>
+      <section class="contents">
+        <header>
+          <h2>그룹</h2>
+        </header>
+        <!--
+        <header>
+          <h2>그룹</h2>
+          <button>그룹 생성</button>
+        </header>
+        <main>
+          <ul>
+            <li v-for="(group, index) in groups" :key="index">
+              <div class="group-container">
+                <div class="group-info">
+                  <a>{{ group.name }}</a>
+                  <span>{{ group.description }}</span>
+                </div>
+                <div class="group-badge">
+                  <font-awesome-icon
+                    icon="fa-solid fa-book-bookmark"
+                    data-type="alarm"
+                  ></font-awesome-icon>
+                  <span>{{ group.projectCount }}</span>
+                  <font-awesome-icon
+                    icon="fa-solid fa-user-group"
+                    data-type="alarm"
+                  ></font-awesome-icon>
+                  <span>{{ group.userCount }}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </main>
+        -->
+      </section>
+    </div>
   </div>
 </template>
 
@@ -36,12 +52,54 @@ export default {
   data: () => {
     return {
       groups: [
-        { id: 1, name: '스크린개발팀', description: '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.', projectCount: 3, userCount: 5 },
-        { id: 1, name: '스크린개발팀', description: '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.', projectCount: 0, userCount: 5 },
-        { id: 1, name: '스크린개발팀', description: '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.', projectCount: 0, userCount: 5 },
-        { id: 1, name: '스크린개발팀', description: '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.', projectCount: 0, userCount: 5 },
-        { id: 1, name: '스크린개발팀', description: '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.', projectCount: 0, userCount: 5 },
-        { id: 1, name: '스크린개발팀', description: '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.', projectCount: 0, userCount: 5 }
+        {
+          id: 1,
+          name: '스크린개발팀',
+          description:
+            '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.',
+          projectCount: 3,
+          userCount: 5
+        },
+        {
+          id: 1,
+          name: '스크린개발팀',
+          description:
+            '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.',
+          projectCount: 0,
+          userCount: 5
+        },
+        {
+          id: 1,
+          name: '스크린개발팀',
+          description:
+            '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.',
+          projectCount: 0,
+          userCount: 5
+        },
+        {
+          id: 1,
+          name: '스크린개발팀',
+          description:
+            '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.',
+          projectCount: 0,
+          userCount: 5
+        },
+        {
+          id: 1,
+          name: '스크린개발팀',
+          description:
+            '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.',
+          projectCount: 0,
+          userCount: 5
+        },
+        {
+          id: 1,
+          name: '스크린개발팀',
+          description:
+            '새롭게 생성된 그룹입니다. 자세한 내용은 그룹을 클릭하세요.',
+          projectCount: 0,
+          userCount: 5
+        }
       ]
     }
   }
@@ -50,7 +108,29 @@ export default {
 
 <style lang="scss" scoped>
 div.container {
-  header {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 50px);
+  background-color: var(--background-color);
+
+  aside {
+    width: 200px;
+    border-right: 1px solid var(--secondary-color);
+  }
+
+  section.contents {
+    flex: 1;
+
+    header {
+      h2 {
+        color: var(--secondary-color);
+        margin: 0;
+        padding: 20px;
+      }
+    }
+  }
+
+  dheader {
     width: 800px;
     margin: 0 auto;
     display: flex;
@@ -81,7 +161,6 @@ div.container {
         background-color: var(--secondary-color);
       }
     }
-
   }
   main {
     width: 800px;

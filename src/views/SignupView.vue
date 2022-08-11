@@ -238,6 +238,7 @@ div.container {
       h4 {
         margin: 0 10px 0 5px;
         display: inline-block;
+        font-weight: normal;
       }
       input {
         outline: 0;
