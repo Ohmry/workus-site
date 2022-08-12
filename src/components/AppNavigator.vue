@@ -33,7 +33,7 @@ export default {
       },
       application: {
         menus: [
-          { label: '내 업무', uri: '/mypage' },
+          { label: '내 업무', uri: '/' },
           { label: '작업공간', uri: '/workspace' },
           { label: '프로젝트', uri: '/project' },
           { label: '이슈', uri: '/issue' }
@@ -63,6 +63,11 @@ export default {
   },
   beforeMount: function () {
     this.user = JSON.parse(sessionStorage.getItem('user'))
+  },
+  mounted: function () {
+    this.$eventBus.$on('router_onchange', (path) => {
+      console.log(path)
+    })
   }
 }
 </script>

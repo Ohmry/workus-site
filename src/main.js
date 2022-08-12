@@ -56,6 +56,7 @@ Vue.config.productionTip = false
 Vue.prototype.$api = api
 Vue.prototype.$axios = axios
 Vue.prototype.$apiUrl = 'http://localhost:9091'
+Vue.prototype.$eventBus = new Vue()
 
 Vue.use(VueCookies)
 

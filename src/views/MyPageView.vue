@@ -6,10 +6,12 @@
 </template>
 
 <script>
+import BaseView from '@/components/BaseView'
 import AsideNavigator from '@/components/AsideNavigator.vue'
 
 export default {
   name: 'MyPageView',
+  mixins: [BaseView],
   components: {
     AsideNavigator
   },
@@ -17,10 +19,10 @@ export default {
     return {
       mypage: {
         menus: [
-          { label: '요약', uri: '/mypage/overview' },
-          { label: '업무목록', uri: '/mypage/list' },
-          { label: '진행상황별 보기', uri: '/mypage/board' },
-          { label: '시간대별 보기', uri: '/mypage/timeline' }
+          { label: '요약', uri: '/overview' },
+          { label: '업무목록', uri: '/list' },
+          { label: '진행상황별 보기', uri: '/board' },
+          { label: '시간대별 보기', uri: '/timeline' }
         ]
       }
     }

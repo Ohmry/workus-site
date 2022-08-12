@@ -6,10 +6,12 @@
 </template>
 
 <script>
+import BaseView from '@/components/BaseView'
 import AsideNavigator from '@/components/AsideNavigator.vue'
 
 export default {
   name: 'ProjectView',
+  mixins: [BaseView],
   components: {
     AsideNavigator
   },

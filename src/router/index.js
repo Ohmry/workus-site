@@ -28,28 +28,27 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/mypage/overview'
+    redirect: '/overview'
   },
   {
-    path: '/mypage',
-    name: 'myPage',
-    redirect: '/mypage/overview',
+    path: '/',
+    redirect: '/overview',
     component: MyPageView,
     children: [
       {
-        path: '/mypage/overview',
+        path: '/overview',
         component: OverView
       },
       {
-        path: '/mypage/list',
+        path: '/list',
         component: ListView
       },
       {
-        path: '/mypage/board',
+        path: '/board',
         component: BoardView
       },
       {
-        path: '/mypage/timeline',
+        path: '/timeline',
         component: TimelineView
       }
     ]
