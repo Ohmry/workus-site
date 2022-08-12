@@ -43,6 +43,7 @@ export default {
   --button-active-color: white;
   --button-not-active-color: #ff9eac;
 }
+
 #app {
   height: 100vh;
   min-width: 800px;
