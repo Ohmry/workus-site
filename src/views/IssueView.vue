@@ -9,20 +9,19 @@
 import AsideNavigator from '@/components/AsideNavigator.vue'
 
 export default {
-  name: 'ProjectView',
+  name: 'IssueView',
   components: {
     AsideNavigator
   },
   data: () => {
     return {
       detail: {
-        regex: /\/project\/(\d)+/
+        regex: /\/issue\/(\d)+/
       },
       menu: {
         visible: true,
         items: [
-          { label: '목록', uri: '/project' },
-          { label: '프로젝트 만들기', uri: '/project/create' }
+          { label: '목록', uri: '/issue' }
         ]
       }
     }

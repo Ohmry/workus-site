@@ -1,14 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import OverView from '@/views/OverView.vue'
-import GroupView from '@/views/GroupView.vue'
-import GroupCreateView from '@/views/GroupCreateView.vue'
+import OverView from '@/views/mypage/OverView.vue'
 import ProjectView from '@/views/ProjectView.vue'
-import ProjectCreateView from '@/views/ProjectCreateView.vue'
+import ProjectListView from '@/views/project/ProjectListView.vue'
+import ProjectCreateView from '@/views/project/ProjectCreateView.vue'
+import ProjectDetailView from '@/views/project/ProjectDetailView.vue'
 import SignupView from '@/views/SignupView.vue'
 import SigninView from '@/views/SigninView.vue'
-import ServerErrorView from '@/views/ServerErrorView.vue'
-import NotFoundView from '@/views/NotFoundView.vue'
+import ServerErrorView from '@/views/common/ServerErrorView.vue'
+import NotFoundView from '@/views/common/NotFoundView.vue'
+import ListView from '@/views/mypage/ListView.vue'
+import BoardView from '@/views/mypage/BoardView.vue'
+import TimelineView from '@/views/mypage/TimelineView.vue'
+import MyPageView from '@/views/MyPageView.vue'
+import WorkSpaceView from '@/views/WorkSpaceView.vue'
+import WorkSpaceDetailView from '@/views/workspace/WorkSpaceDetailView.vue'
+import WorkSpaceListView from '@/views/workspace/WorkSpaceListView.vue'
+import WorkSpaceCreateView from '@/views/workspace/WorkSpaceCreateView.vue'
+import IssueView from '@/views/IssueView.vue'
+import IssueListView from '@/views/issue/IssueListView.vue'
+import IssueCreateView from '@/views/issue/IssueCreateView.vue'
+import IssueDetailView from '@/views/issue/IssueDetailView.vue'
 // import api from '@/modules/api'
 
 Vue.use(VueRouter)
@@ -16,32 +28,85 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/overview'
+    redirect: '/mypage/overview'
   },
   {
-    path: '/overview',
-    name: 'overView',
-    component: OverView
+    path: '/mypage',
+    name: 'myPage',
+    redirect: '/mypage/overview',
+    component: MyPageView,
+    children: [
+      {
+        path: '/mypage/overview',
+        component: OverView
+      },
+      {
+        path: '/mypage/list',
+        component: ListView
+      },
+      {
+        path: '/mypage/board',
+        component: BoardView
+      },
+      {
+        path: '/mypage/timeline',
+        component: TimelineView
+      }
+    ]
   },
   {
-    path: '/group',
-    name: 'group',
-    component: GroupView
-  },
-  {
-    path: '/group/create',
-    name: 'groupCreate',
-    component: GroupCreateView
+    path: '/workspace',
+    component: WorkSpaceView,
+    children: [
+      {
+        path: '/',
+        component: WorkSpaceListView
+      },
+      {
+        path: '/workspace/create',
+        component: WorkSpaceCreateView
+      },
+      {
+        path: '/workspace/:id(\\d+)',
+        component: WorkSpaceDetailView
+      }
+    ]
   },
   {
     path: '/project',
-    name: 'project',
-    component: ProjectView
+    component: ProjectView,
+    children: [
+      {
+        path: '/',
+        component: ProjectListView
+      },
+      {
+        path: '/project/create',
+        component: ProjectCreateView
+      },
+      {
+        path: '/project/:id(\\d+)',
+        component: ProjectDetailView
+      }
+    ]
   },
   {
-    path: '/project/create',
-    name: 'projectCreate',
-    component: ProjectCreateView
+    path: '/issue',
+    component: IssueView,
+    children: [
+      {
+        path: '/',
+        component: IssueListView
+      },
+      {
+        path: '/issue/create',
+        component: IssueCreateView
+      },
+      {
+        path: '/issue/:id(\\d+)',
+        component: IssueDetailView
+      }
+    ]
   },
   {
     path: '/signup',

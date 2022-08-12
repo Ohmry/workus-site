@@ -9,20 +9,20 @@
 import AsideNavigator from '@/components/AsideNavigator.vue'
 
 export default {
-  name: 'ProjectView',
+  name: 'WorkSpaceView',
   components: {
     AsideNavigator
   },
   data: () => {
     return {
       detail: {
-        regex: /\/project\/(\d)+/
+        regex: /\/workspace\/(\d)+/
       },
       menu: {
         visible: true,
         items: [
-          { label: '목록', uri: '/project' },
-          { label: '프로젝트 만들기', uri: '/project/create' }
+          { label: '목록', uri: '/workspace' },
+          { label: '작업공간 만들기', uri: '/workspace/create' }
         ]
       }
     }

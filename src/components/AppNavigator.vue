@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="app-navigator">
       <a href="/" data-type="logo">WORKUS</a>
       <span class="divider"></span>
       <router-link v-for="(menu, index) in application.menus" :key="index" :to="menu.uri">
@@ -33,8 +33,8 @@ export default {
       },
       application: {
         menus: [
-          { label: '내 업무', uri: '/overview' },
-          { label: '그룹', uri: '/group' },
+          { label: '내 업무', uri: '/mypage' },
+          { label: '작업공간', uri: '/workspace' },
           { label: '프로젝트', uri: '/project' },
           { label: '이슈', uri: '/issue' }
         ],
@@ -111,6 +111,7 @@ nav {
       border: 0px;
       background-color: transparent;
       font-size: 16px;
+      outline: none;
       color: var(--button-not-active-color);
       cursor: pointer;
       padding: 0 15px;

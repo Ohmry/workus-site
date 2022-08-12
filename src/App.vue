@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <AppNavigator />
     <router-view></router-view>
     <AppAlert />
     <AppConfirm />
@@ -8,6 +9,7 @@
 </template>
 
 <script>
+import AppNavigator from '@/components/AppNavigator.vue'
 import AppContextMenu from './components/installer/AppContextMenu/AppContextMenu.vue'
 export default {
   data: () => {
@@ -21,7 +23,10 @@ export default {
       }, 200)
     }
   },
-  components: { AppContextMenu }
+  components: {
+    AppContextMenu,
+    AppNavigator
+  }
 }
 </script>
 
@@ -50,6 +55,24 @@ a {
   text-decoration: none;
   &:hover {
     text-decoration: underline;
+  }
+}
+
+span[data-type=caption] {
+  font-size: 14px;
+  color: #6B6B6B;
+}
+
+div.container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 50px);
+  background-color: var(--background-color);
+
+  div.container {
+    flex: 1;
+    background-color: #F2F2F2;
+    overflow: auto;
   }
 }
 </style>
