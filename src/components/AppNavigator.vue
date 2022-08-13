@@ -2,7 +2,7 @@
   <nav class="app-navigator">
       <a href="/" data-type="logo">WORKUS</a>
       <span class="divider"></span>
-      <router-link v-for="(menu, index) in application.menus" :key="index" :to="menu.uri">
+      <router-link v-for="(menu, index) in application.menus" :key="index" :to="menu.uri" :class="{ 'selected-link': menu.selected }">
         <button>
           {{ menu.label }}
         </button>
@@ -33,10 +33,10 @@ export default {
       },
       application: {
         menus: [
-          { label: '내 업무', uri: '/' },
-          { label: '작업공간', uri: '/workspace' },
-          { label: '프로젝트', uri: '/project' },
-          { label: '이슈', uri: '/issue' }
+          { label: '내 업무', uri: '/', selected: false },
+          { label: '작업공간', uri: '/workspace', selected: false },
+          { label: '프로젝트', uri: '/project', selected: false },
+          { label: '이슈', uri: '/issue', selected: false }
         ],
         myMenu: {
           visible: false
@@ -66,7 +66,19 @@ export default {
   },
   mounted: function () {
     this.$eventBus.$on('router_onchange', (path) => {
-      console.log(path)
+      this.application.menus.forEach((menu) => { menu.selected = false })
+      console.log(path.indexOf('/workspace'))
+      console.log(path.indexOf('/project'))
+      console.log(path.indexOf('/issue'))
+      if (path.indexOf('/workspace') >= 0) {
+        this.application.menus[1].selected = true
+      } else if (path.indexOf('/project') >= 0) {
+        this.application.menus[2].selected = true
+      } else if (path.indexOf('/issue') >= 0) {
+        this.application.menus[3].selected = true
+      } else {
+        this.application.menus[0].selected = true
+      }
     })
   }
 }
@@ -105,7 +117,7 @@ nav {
   }
 
   a {
-    &.router-link-active {
+    &.selected-link {
       button {
         color: var(--button-active-color);
       }
