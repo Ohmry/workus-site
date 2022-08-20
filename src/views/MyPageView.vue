@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="layout-container">
     <AsideNavigator :menus="mypage.menus"/>
     <router-view></router-view>
   </div>
@@ -19,10 +19,10 @@ export default {
     return {
       mypage: {
         menus: [
-          { label: '요약', uri: '/overview' },
-          { label: '업무목록', uri: '/list' },
-          { label: '진행상황별 보기', uri: '/board' },
-          { label: '시간대별 보기', uri: '/timeline' }
+          { label: '요약', uri: '/personal/overview' },
+          { label: '업무목록', uri: '/personal/list' },
+          { label: '진행상황별 보기', uri: '/personal/board' },
+          { label: '시간대별 보기', uri: '/personal/timeline' }
         ]
       }
     }

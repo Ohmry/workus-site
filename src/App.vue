@@ -64,7 +64,7 @@ span[data-type=caption] {
   color: #6B6B6B;
 }
 
-div.container {
+div.layout-container {
   display: flex;
   flex-direction: row;
   height: calc(100vh - 50px);
@@ -72,8 +72,6 @@ div.container {
 
   div.container {
     flex: 1;
-    background-color: #F2F2F2;
-    overflow: auto;
   }
 }
 </style>

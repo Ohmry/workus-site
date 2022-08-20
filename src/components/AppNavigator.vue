@@ -33,8 +33,8 @@ export default {
       },
       application: {
         menus: [
-          { label: '내 업무', uri: '/', selected: false },
-          { label: '작업공간', uri: '/workspace', selected: false },
+          { label: '내 작업', uri: '/personal', selected: false },
+          { label: '팀', uri: '/team', selected: false },
           { label: '프로젝트', uri: '/project', selected: false },
           { label: '이슈', uri: '/issue', selected: false }
         ],
