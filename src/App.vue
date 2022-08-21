@@ -33,7 +33,7 @@ export default {
 <style lang="scss">
 :root {
   --background-color: #f7f7f7;
-  --background-secondary-color: #e7e7e7;
+  --background-secondary-color: #E7E7E7;
   --foreground-color: #adadad;
   --foreground-secondary-color: #E7E7E7;
   --primary-color: #d7102d;
@@ -67,7 +67,7 @@ span[data-type=caption] {
 div.layout-container {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
   background-color: var(--background-color);
 
   div.container {
