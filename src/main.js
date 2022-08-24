@@ -22,7 +22,8 @@ import {
   faBell,
   faCube,
   faBookBookmark,
-  faUserGroup
+  faUserGroup,
+  faFilter
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -42,7 +43,8 @@ library.add(
   faBell,
   faCube,
   faBookBookmark,
-  faUserGroup
+  faUserGroup,
+  faFilter
 )
 
 library.add(

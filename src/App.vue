@@ -64,6 +64,11 @@ span[data-type=caption] {
   color: #6B6B6B;
 }
 
+nav.app-navigator {
+  position: sticky;
+  top: 0;
+}
+
 div.layout-container {
   display: flex;
   flex-direction: row;

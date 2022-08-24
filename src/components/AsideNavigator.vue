@@ -1,5 +1,5 @@
 <template>
-  <aside>
+  <aside class="aside-navigator">
     <nav>
       <ul>
         <li>

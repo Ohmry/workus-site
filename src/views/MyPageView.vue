@@ -31,5 +31,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+aside.aside-navigator {
+  position: sticky;
+  top: 50px;
+  min-height: calc(100vh - 50px);
+  align-self: flex-start;
+}
 </style>
