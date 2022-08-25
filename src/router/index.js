@@ -9,10 +9,10 @@ import SignupView from '@/views/SignupView.vue'
 import SigninView from '@/views/SigninView.vue'
 import ServerErrorView from '@/views/common/ServerErrorView.vue'
 import NotFoundView from '@/views/common/NotFoundView.vue'
-import ListView from '@/views/mypage/ListView.vue'
-import BoardView from '@/views/mypage/BoardView.vue'
-import TimelineView from '@/views/mypage/TimelineView.vue'
-import MyPageView from '@/views/MyPageView.vue'
+import ListView from '@/views/personal/ListView.vue'
+import BoardView from '@/views/personal/BoardView.vue'
+import TimelineView from '@/views/personal/TimelineView.vue'
+import PersonalView from '@/views/PersonalView.vue'
 import WorkSpaceView from '@/views/WorkSpaceView.vue'
 import WorkSpaceDetailView from '@/views/workspace/WorkSpaceDetailView.vue'
 import WorkSpaceListView from '@/views/workspace/WorkSpaceListView.vue'
@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/personal',
     redirect: '/personal/overview',
-    component: MyPageView,
+    component: PersonalView,
     children: [
       {
         path: '/personal/overview',

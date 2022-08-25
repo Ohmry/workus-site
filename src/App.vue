@@ -50,6 +50,7 @@ export default {
   background-color: var(--background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: auto;
+  overflow: hidden;
 }
 a {
   color: var(--font-link-color);
@@ -78,5 +79,14 @@ div.layout-container {
   div.container {
     flex: 1;
   }
+}
+
+div.dim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>

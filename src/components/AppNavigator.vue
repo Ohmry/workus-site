@@ -63,23 +63,6 @@ export default {
   },
   beforeMount: function () {
     this.user = JSON.parse(sessionStorage.getItem('user'))
-  },
-  mounted: function () {
-    this.$eventBus.$on('router_onchange', (path) => {
-      this.application.menus.forEach((menu) => { menu.selected = false })
-      console.log(path.indexOf('/workspace'))
-      console.log(path.indexOf('/project'))
-      console.log(path.indexOf('/issue'))
-      if (path.indexOf('/workspace') >= 0) {
-        this.application.menus[1].selected = true
-      } else if (path.indexOf('/project') >= 0) {
-        this.application.menus[2].selected = true
-      } else if (path.indexOf('/issue') >= 0) {
-        this.application.menus[3].selected = true
-      } else {
-        this.application.menus[0].selected = true
-      }
-    })
   }
 }
 </script>
@@ -117,7 +100,7 @@ nav {
   }
 
   a {
-    &.selected-link {
+    &.router-link-active {
       button {
         color: var(--button-active-color);
       }

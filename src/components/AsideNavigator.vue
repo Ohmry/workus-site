@@ -28,6 +28,7 @@ export default {
 <style lang="scss" scoped>
 aside {
     width: 200px;
+    min-width: 200px;
     border-right: 1px solid var(--secondary-color);
 
     nav {

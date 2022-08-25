@@ -1,19 +1,20 @@
 <template>
   <div class="layout-container">
     <AsideNavigator :menus="mypage.menus"/>
-    <router-view></router-view>
+    <router-view @openNewTaskPopup="openNewTaskPopup"></router-view>
+    <NewTaskPopupView :visible="mypage.newTask.popup.visible" @close="closeNewTaskPopup"/>
   </div>
 </template>
 
 <script>
-import BaseView from '@/components/BaseView'
 import AsideNavigator from '@/components/AsideNavigator.vue'
+import NewTaskPopupView from '@/views/personal/NewTaskPopupView.vue'
 
 export default {
-  name: 'MyPageView',
-  mixins: [BaseView],
+  name: 'PersonalView',
   components: {
-    AsideNavigator
+    AsideNavigator,
+    NewTaskPopupView
   },
   data: () => {
     return {
@@ -23,8 +24,21 @@ export default {
           { label: '업무목록', uri: '/personal/list' },
           { label: '진행상황별 보기', uri: '/personal/board' },
           { label: '시간대별 보기', uri: '/personal/timeline' }
-        ]
+        ],
+        newTask: {
+          popup: {
+            visible: false
+          }
+        }
       }
+    }
+  },
+  methods: {
+    openNewTaskPopup: function () {
+      this.mypage.newTask.popup.visible = true
+    },
+    closeNewTaskPopup: function () {
+      this.mypage.newTask.popup.visible = false
     }
   }
 }
