@@ -28,7 +28,8 @@ import {
 
 import {
   faUser,
-  faKeyboard
+  faKeyboard,
+  faComment
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
@@ -44,7 +45,8 @@ library.add(
   faCube,
   faBookBookmark,
   faUserGroup,
-  faFilter
+  faFilter,
+  faComment
 )
 
 library.add(

@@ -47,19 +47,17 @@ aside {
               text-align: right;
               outline: none;
               background-color: transparent;
-              color: #6B6B6B;
+              color: black;
 
               &:hover {
                 cursor: pointer;
-                background-color: #ffcfd6;
-                color: #6B6B6B;
+                background-color: #FFCFD6;
               }
             }
 
             &.router-link-exact-active {
               button {
-                color: white;
-                background-color: var(--secondary-color);
+                background-color: #FFA2B0;
               }
             }
           }

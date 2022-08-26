@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import OverView from '@/views/mypage/OverView.vue'
+import OverView from '@/views/personal/OverView.vue'
 import ProjectView from '@/views/ProjectView.vue'
 import ProjectListView from '@/views/project/ProjectListView.vue'
 import ProjectCreateView from '@/views/project/ProjectCreateView.vue'

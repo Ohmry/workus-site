@@ -117,36 +117,48 @@ export default {
 <style lang="scss" scoped>
 div.container {
   background-color: #FFFFFF;
-  height: calc(100vh - 50px);
+  width: fit-content;
+  height: 100vh;
   overflow: auto;
+  padding: 0 30px;
 
   header.container-header {
-    padding: 10px 30px 0 30px;
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 10px;
     height: 60px;
     line-height: 60px;
     background-color: #FFFFFF;
     h2 {
       color: var(--primary-color);
       margin: 0;
+      flex-grow: 1;
     }
   }
-
   main {
     display: flex;
     flex-direction: row;
-    user-select: none;
+    min-height: 600px;
 
     section.progress-container {
+      user-select: none;
       width: 250px;
       margin: 10px;
-      min-height: calc(100vh - 200px);
+      min-height: calc(100vh - 170px);
       background-color: #F7F7F7;
       border-radius: 10px;
       padding: 10px;
       border: 1px solid var(--primary-color);
 
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+
       header {
-        width: 250px;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -168,6 +180,10 @@ div.container {
           color: var(--primary-color);
           padding: 0 10px 0 0;
         }
+      }
+
+      div.card-container {
+        width: 250px;
       }
     }
   }

@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <header>
-      <h2>업무목록</h2>
-      <div class="search-box-container">
-        <font-awesome-icon icon="fa-solid fa-magnifying-glass" data-type="alarm"></font-awesome-icon>
-        <input class="search-box" type="text" />
-      </div>
-      <button @click="openNewTaskPopup">새로운 업무</button>
-    </header>
     <main>
+      <header>
+        <h2>업무목록</h2>
+        <div class="search-box-container">
+          <font-awesome-icon icon="fa-solid fa-magnifying-glass" data-type="alarm"></font-awesome-icon>
+          <input class="search-box" type="text" />
+        </div>
+        <button @click="openNewTaskPopup">새로운 업무</button>
+      </header>
       <table>
         <colgroup>
           <col style="width: 40px;" />
@@ -37,7 +37,7 @@
           <th>담당자</th>
         </thead>
         <tbody>
-          <tr v-for="(task, index) in tasks" :key="task.id" @contextmenu.prevent="openContextMenu(task)">
+          <tr v-for="(task, index) in tasks" :key="task.id + '_' + index" @contextmenu.prevent="openContextMenu(task)">
             <td>{{ index + 1 }}</td>
             <td>{{ task.category }}</td>
             <td>{{ task.team.name || task.project.name }}</td>
@@ -67,11 +67,11 @@ export default {
         { id: 1, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
         { id: 2, category: '개발과제', team: { name: '' }, project: { name: '메가박스 모바일오더 개선 프로젝트' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
         { id: 3, category: '개발과제', team: { name: '' }, project: { name: '' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
-        { id: 1, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
-        { id: 2, category: '개발과제', team: { name: '' }, project: { name: '메가박스 모바일오더 개선 프로젝트' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
-        { id: 3, category: '개발과제', team: { name: '' }, project: { name: '' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
-        { id: 1, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
-        { id: 2, category: '개발과제', team: { name: '' }, project: { name: '메가박스 모바일오더 개선 프로젝트' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
+        { id: 4, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
+        { id: 5, category: '개발과제', team: { name: '' }, project: { name: '메가박스 모바일오더 개선 프로젝트' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
+        { id: 6, category: '개발과제', team: { name: '' }, project: { name: '' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
+        { id: 7, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
+        { id: 8, category: '개발과제', team: { name: '' }, project: { name: '메가박스 모바일오더 개선 프로젝트' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
         { id: 3, category: '개발과제', team: { name: '' }, project: { name: '' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
         { id: 1, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
         { id: 2, category: '개발과제', team: { name: '' }, project: { name: '메가박스 모바일오더 개선 프로젝트' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
@@ -200,10 +200,11 @@ div.container {
     }
   }
   main {
+    width: fit-content;
     table {
       border-spacing: 0px;
-      table-layout: fixed;
       min-width: 800px;
+      table-layout: fixed;
       width: 100%;
       user-select: none;
       padding: 0 30px 10px 30px;
