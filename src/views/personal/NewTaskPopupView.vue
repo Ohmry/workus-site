@@ -1,4 +1,5 @@
 <template>
+  <transition>
   <div class="popup-container" v-if="visible">
     <div class="dim"></div>
     <div class="task-create-container">
@@ -9,6 +10,7 @@
       </div>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>

@@ -89,4 +89,13 @@ div.dim {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.25s ease;
+}
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 </style>

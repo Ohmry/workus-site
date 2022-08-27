@@ -64,7 +64,7 @@ export default {
   data: () => {
     return {
       tasks: [
-        { id: 1, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
+        { id: 1, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: '이병훈' }, { name: '김준철' }] },
         { id: 2, category: '개발과제', team: { name: '' }, project: { name: '메가박스 모바일오더 개선 프로젝트' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
         { id: 3, category: '개발과제', team: { name: '' }, project: { name: '' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
         { id: 4, category: '개발과제', team: { name: '' }, project: { name: '프로젝트1' }, title: '쿠폰정책관리 기능 개선', requester: '이은지K', requestDepartment: '메가박스 마케팅팀', startDate: '20220101', endDate: '20221231', progress: '진행 중', percentage: 80, managers: [{ name: 'lee.byunghoon' }, { name: 'kim.joonchul' }] },
