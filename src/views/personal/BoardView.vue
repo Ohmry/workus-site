@@ -7,61 +7,61 @@
       <section class="progress-container" id="ready-container">
         <header>
           <h4>작업 예정</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus" data-type="alarm"></font-awesome-icon>
+          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
           <span>추가</span>
         </header>
-        <div class="card-container" data-role="READY">
+        <div class="card-container" data-progress-value="READY">
           <BoardCard v-for="(item) in itemForReady" :key="item.id" :item="item" />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>작업 중</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus" data-type="alarm"></font-awesome-icon>
+          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
           <span>추가</span>
         </header>
-        <div class="card-container" data-role="PROCEED">
+        <div class="card-container" data-progress-value="PROCEED">
           <BoardCard v-for="(item) in itemForProceed" :key="item.id" :item="item" />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>테스트 중</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus" data-type="alarm"></font-awesome-icon>
+          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
           <span>추가</span>
         </header>
-        <div class="card-container" data-role="TESTING">
+        <div class="card-container" data-progress-value="TESTING">
           <BoardCard v-for="(item) in itemForTesting" :key="item.id" :item="item" />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>배포예정</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus" data-type="alarm"></font-awesome-icon>
+          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
           <span>추가</span>
         </header>
-        <div class="card-container" data-role="BEFORE_DEPLOY">
+        <div class="card-container" data-progress-value="BEFORE_DEPLOY">
           <BoardCard v-for="(item) in itemForBeforeDeploy" :key="item.id" :item="item" />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>작업 완료</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus" data-type="alarm"></font-awesome-icon>
+          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
           <span>추가</span>
         </header>
-        <div class="card-container" data-role="COMPLETED">
+        <div class="card-container" data-progress-value="COMPLETED">
           <BoardCard v-for="(item) in itemForCompleted" :key="item.id" :item="item" />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>보류 또는 중단</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus" data-type="alarm"></font-awesome-icon>
+          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
           <span>추가</span>
         </header>
-        <div class="card-container" data-role="ABORTED">
-          <BoardCard v-for="(item) in itemForCompleted" :key="item.id" :item="item" />
+        <div class="card-container" data-progress-value="ABORTED">
+          <BoardCard v-for="(item) in itemForAborted" :key="item.id" :item="item" />
         </div>
       </section>
     </main>
@@ -78,14 +78,7 @@ export default {
   data: () => {
     return {
       board: {
-        items: [
-          { id: 1, title: '모바일오더 개선', startDate: '20220801', endDate: '20220831', importance: 'HIGH', comment: 15, progress: 'READY' },
-          { id: 2, title: 'ISMS 취약점 개선 조치', startDate: '20220801', endDate: '20220831', importance: 'MID', comment: 1, progress: 'PROCEED' },
-          { id: 3, title: '쿠폰정책관리 기능 개선', startDate: '20220801', endDate: '20220831', comment: 5, progress: 'PROCEED' },
-          { id: 4, title: '서버 TLS 버전 업데이트', startDate: '20220801', endDate: '20220831', comment: 2, progress: 'COMPLETED' },
-          { id: 5, title: '모바일오더 예약 기능', startDate: '20220801', endDate: '20220831', comment: 35, progress: 'ABORTED' },
-          { id: 6, title: '부티크 프라이빗 예약 오픈 기능 개발', startDate: '20220801', endDate: '20220831', comment: 2, progress: 'TESTING' }
-        ]
+        items: []
       }
     }
   },
@@ -110,6 +103,9 @@ export default {
     }
   },
   methods: {
+  },
+  mounted: function () {
+    this.board.items = this.$store.state.tasks
   }
 }
 </script>
@@ -135,6 +131,7 @@ div.container {
     display: flex;
     flex-direction: row;
     user-select: none;
+    width: fit-content;
 
     section.progress-container {
       width: 250px;

@@ -12,9 +12,8 @@
       <span class="comment-count">{{ item.comment }}</span>
     </div>
     <div class="card-managers">
-      <div class="avatar">이</div>
-      <div class="avatar">강</div>
-      <div class="avatar">+2</div>
+      <div class="avatar" v-for="(manager, index) in this.sliceManagers()" :key="'manager-' + index">{{ manager }}</div>
+      <!-- <div class="avatar">+2</div> -->
     </div>
   </div>
 </template>
@@ -38,6 +37,23 @@ export default {
   methods: {
     dateFormatter: function (date) {
       return date.substring(0, 4) + '.' + date.substring(4, 6) + '.' + date.substring(6, 8)
+    },
+    sliceManagers: function () {
+      let count = 2
+      if (!Array.isArray(this.item.managers)) return ''
+      if (this.item.managers.length < 1) return ''
+      if (this.item.managers.length < count) {
+        count = this.item.managers.length
+      }
+
+      const managers = []
+      for (let index = 0; index < count; index++) {
+        managers.push(this.item.managers[index].name.substring(0, 1).toUpperCase())
+      }
+      if (this.item.managers.length > count) {
+        managers.push('+' + (this.item.managers.length - count))
+      }
+      return managers
     },
     startCardDrag: function (e) {
       if (e.button !== 0) return
@@ -94,6 +110,13 @@ export default {
           const container = this.layer.getElementsByClassName('card-container')[0]
           if (container) {
             container.append(this.element)
+          }
+
+          const newProgress = container.getAttribute('data-progress-value')
+          const task = this.$store.state.tasks.filter(task => task.id === this.item.id)
+          console.log(task)
+          if (task.length > 0) {
+            task[0].progress = newProgress
           }
         } else {
           this.resetCard()
@@ -157,19 +180,23 @@ div.card {
     }
   }
   div.card-managers {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    display: flex;
+    flex-direction: row;
+
     div.avatar {
-      position: absolute;
-      right: 10px;
-      bottom: 5px;
       pointer-events: none;
-      background-color: #FFA2B0;
+      background-color: #C7C7C7;
       width: 25px;
       height: 25px;
       font-size: 14px;
+      margin-left: 3px;
       border-radius: 50%;
       text-align: center;
       line-height: 25px;
-
+/*
       &:nth-child(1) {
         right: 62px;
         z-index: 3;
@@ -185,6 +212,7 @@ div.card {
         z-index: 1;
         background-color: #CFCFCF;
       }
+*/
     }
   }
 }

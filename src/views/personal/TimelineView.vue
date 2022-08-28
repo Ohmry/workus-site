@@ -17,15 +17,16 @@ export default {
 
 <style lang="scss" scoped>
 div.container {
-  padding: 10px 30px;
   background-color: #FFFFFF;
+  height: calc(100vh - 50px);
   overflow: auto;
 
   header {
+    padding: 10px 30px 0 30px;
     display: flex;
     flex-direction: row;
     position: sticky;
-    left: 0;
+    top: 0;
     height: 60px;
     line-height: 60px;
     background-color: #FFFFFF;
@@ -37,7 +38,7 @@ div.container {
   }
 
   main {
-    width: 2024px;
+    white-space: nowrap;
   }
 }
 </style>
