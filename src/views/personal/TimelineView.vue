@@ -4,14 +4,30 @@
       <h2>시간대별 보기</h2>
     </header>
     <main>
-      This is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is mainThis is main
+      <TimelineFragment :fromMonth="this.fromMonth" :toMonth="this.toMonth" />
     </main>
   </div>
 </template>
 
 <script>
+import TimelineFragment from './Timeline/TimelineFragment.vue'
+
 export default {
-  name: 'TimelineView'
+  name: 'TimelineView',
+  components: {
+    TimelineFragment
+  },
+  data: () => {
+    return {
+      fromMonth: '202208',
+      toMonth: '202210'
+    }
+  },
+  methods: {
+    change: function (e) {
+      this.fromMonth = '202209'
+    }
+  }
 }
 </script>
 

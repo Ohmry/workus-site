@@ -7,61 +7,99 @@
       <section class="progress-container" id="ready-container">
         <header>
           <h4>작업 예정</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
+          <font-awesome-icon
+            class="comment-icon"
+            icon="fa-solid fa-plus"
+          ></font-awesome-icon>
           <span>추가</span>
         </header>
         <div class="card-container" data-progress-value="READY">
-          <BoardCard v-for="(item) in itemForReady" :key="item.id" :item="item" />
+          <BoardCard v-for="item in itemForReady" :key="item.id" :item="item" />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>작업 중</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
+          <font-awesome-icon
+            class="comment-icon"
+            icon="fa-solid fa-plus"
+          ></font-awesome-icon>
           <span>추가</span>
         </header>
         <div class="card-container" data-progress-value="PROCEED">
-          <BoardCard v-for="(item) in itemForProceed" :key="item.id" :item="item" />
+          <BoardCard
+            v-for="item in itemForProceed"
+            :key="item.id"
+            :item="item"
+          />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>테스트 중</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
+          <font-awesome-icon
+            class="comment-icon"
+            icon="fa-solid fa-plus"
+          ></font-awesome-icon>
           <span>추가</span>
         </header>
         <div class="card-container" data-progress-value="TESTING">
-          <BoardCard v-for="(item) in itemForTesting" :key="item.id" :item="item" />
+          <BoardCard
+            v-for="item in itemForTesting"
+            :key="item.id"
+            :item="item"
+          />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>배포예정</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
+          <font-awesome-icon
+            class="comment-icon"
+            icon="fa-solid fa-plus"
+          ></font-awesome-icon>
           <span>추가</span>
         </header>
         <div class="card-container" data-progress-value="BEFORE_DEPLOY">
-          <BoardCard v-for="(item) in itemForBeforeDeploy" :key="item.id" :item="item" />
+          <BoardCard
+            v-for="item in itemForBeforeDeploy"
+            :key="item.id"
+            :item="item"
+          />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>작업 완료</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
+          <font-awesome-icon
+            class="comment-icon"
+            icon="fa-solid fa-plus"
+          ></font-awesome-icon>
           <span>추가</span>
         </header>
         <div class="card-container" data-progress-value="COMPLETED">
-          <BoardCard v-for="(item) in itemForCompleted" :key="item.id" :item="item" />
+          <BoardCard
+            v-for="item in itemForCompleted"
+            :key="item.id"
+            :item="item"
+          />
         </div>
       </section>
       <section class="progress-container">
         <header>
           <h4>보류 또는 중단</h4>
-          <font-awesome-icon class="comment-icon" icon="fa-solid fa-plus"></font-awesome-icon>
+          <font-awesome-icon
+            class="comment-icon"
+            icon="fa-solid fa-plus"
+          ></font-awesome-icon>
           <span>추가</span>
         </header>
         <div class="card-container" data-progress-value="ABORTED">
-          <BoardCard v-for="(item) in itemForAborted" :key="item.id" :item="item" />
+          <BoardCard
+            v-for="item in itemForAborted"
+            :key="item.id"
+            :item="item"
+          />
         </div>
       </section>
     </main>
@@ -69,7 +107,7 @@
 </template>
 
 <script>
-import BoardCard from './BoardView/BoardCard.vue'
+import BoardCard from './Board/BoardCard.vue'
 export default {
   name: 'BoardView',
   components: {
@@ -84,25 +122,50 @@ export default {
   },
   computed: {
     itemForReady: function () {
-      return this.board.items.filter(item => item.progress === 'READY')
+      return this.board.items
+        .filter((item) => item.progress === 'READY')
+        .sort(this.taskCompare)
     },
     itemForProceed: function () {
-      return this.board.items.filter(item => item.progress === 'PROCEED')
+      return this.board.items
+        .filter((item) => item.progress === 'PROCEED')
+        .sort(this.taskCompare)
     },
     itemForTesting: function () {
-      return this.board.items.filter(item => item.progress === 'TESTING')
+      return this.board.items
+        .filter((item) => item.progress === 'TESTING')
+        .sort(this.taskCompare)
     },
     itemForBeforeDeploy: function () {
-      return this.board.items.filter(item => item.progress === 'BEFORE_DEPLOY')
+      return this.board.items
+        .filter((item) => item.progress === 'BEFORE_DEPLOY')
+        .sort(this.taskCompare)
     },
     itemForCompleted: function () {
-      return this.board.items.filter(item => item.progress === 'COMPLETED')
+      return this.board.items
+        .filter((item) => item.progress === 'COMPLETED')
+        .sort(this.taskCompare)
     },
     itemForAborted: function () {
-      return this.board.items.filter(item => item.progress === 'ABORTED')
+      return this.board.items
+        .filter((item) => item.progress === 'ABORTED')
+        .sort(this.taskCompare)
     }
   },
   methods: {
+    taskCompare: function (prev, next) {
+      if (prev.startDate < next.startDate) {
+        return -1
+      } else if (prev.startDate > next.startDate) {
+        return 1
+      } else if (prev.endDate < next.endDate) {
+        return -1
+      } else if (prev.enddate > next.endDate) {
+        return 1
+      } else {
+        return 0
+      }
+    }
   },
   mounted: function () {
     this.board.items = this.$store.state.tasks
@@ -112,7 +175,7 @@ export default {
 
 <style lang="scss" scoped>
 div.container {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   height: calc(100vh - 50px);
   overflow: auto;
 
@@ -120,7 +183,7 @@ div.container {
     padding: 10px 30px 0 30px;
     height: 60px;
     line-height: 60px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     h2 {
       color: var(--primary-color);
       margin: 0;
@@ -137,7 +200,7 @@ div.container {
       width: 250px;
       margin: 10px;
       min-height: calc(100vh - 200px);
-      background-color: #F7F7F7;
+      background-color: #f7f7f7;
       border-radius: 10px;
       padding: 10px;
       border: 1px solid var(--primary-color);

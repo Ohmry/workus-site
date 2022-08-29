@@ -18,8 +18,8 @@ export default new Vuex.Store({
         title: '모바일오더 기능 개선',
         requester: '김선덕K',
         requestDepartment: '운영기획팀',
-        startDate: '20220801',
-        endDate: '20220831',
+        startDate: '20220830',
+        endDate: '20220930',
         progress: 'PROCEED',
         percentage: 80,
         managers: [
@@ -45,7 +45,7 @@ export default new Vuex.Store({
         title: 'ISMS 취약점 개선 조치',
         requester: '박선종K',
         requestDepartment: '인프라운영팀',
-        startDate: '20220810',
+        startDate: '20220815',
         endDate: '20220915',
         progress: 'READY',
         percentage: 80,
@@ -160,7 +160,7 @@ export default new Vuex.Store({
         requester: '최연지D',
         requestDepartment: 'IT솔루션팀',
         startDate: '20220810',
-        endDate: '20220915',
+        endDate: '20220909',
         progress: 'TESTING',
         percentage: 80,
         managers: [

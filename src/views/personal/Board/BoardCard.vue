@@ -106,6 +106,9 @@ export default {
     },
     endCardDrag: function () {
       if (this.layer) {
+        if (this.layer.className === 'card') {
+          this.layer = this.layer.parentElement.parentElement
+        }
         if (this.layer.className === 'progress-container') {
           const container = this.layer.getElementsByClassName('card-container')[0]
           if (container) {
@@ -150,6 +153,10 @@ div.card {
   cursor: pointer;
   border: 1px solid var(--foreground-color);
   background-color: #FFFFFF;
+
+  * {
+    pointer-events: none;
+  }
 
   div.card-importance {
     border-top: 10px solid transparent;
