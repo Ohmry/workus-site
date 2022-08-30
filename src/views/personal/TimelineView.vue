@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
+  <div class="container" ref="container">
     <header>
       <h2>시간대별 보기</h2>
     </header>
     <main>
-      <TimelineFragment :fromMonth="this.fromMonth" :toMonth="this.toMonth" />
+      <TimelineFragment :fromMonth="this.fromMonth" :toMonth="this.toMonth" :items="this.tasks"/>
     </main>
   </div>
 </template>
@@ -24,10 +24,11 @@ export default {
       tasks: []
     }
   },
-  methods: {
-    change: function (e) {
-      this.fromMonth = '202209'
-    }
+  beforeMount: function () {
+    this.tasks = this.$store.state.tasks
+  },
+  mounted: function () {
+    this.$refs.container.scrollTo(300, 0)
   }
 }
 </script>
@@ -44,9 +45,11 @@ div.container {
     flex-direction: row;
     position: sticky;
     top: 0;
+    left: 0;
     height: 60px;
     line-height: 60px;
     background-color: #FFFFFF;
+    z-index: 3;
     h2 {
       color: var(--primary-color);
       margin: 0;

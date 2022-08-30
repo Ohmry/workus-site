@@ -17,26 +17,35 @@
         <td rowspan="2">시작일자</td>
         <td rowspan="2">종료일자</td>
         <td rowspan="2">담당자</td>
-        <td v-for="(month, index) in this.calendar.months" :key="'month-cell-' + index" :colspan="month.days">{{ month.label }}</td>
+        <td v-for="(month, index) in this.calendar.months" :key="'month-cell-' + index" :colspan="month.days" class="month-cell">{{ month.label }}</td>
       </tr>
       <tr>
-        <td v-for="(day, index) in this.calendar.days" :key="'day-cell-' + index" :style="{ color: day.color, 'background-color': day.bgColor }">{{ day.label }}</td>
+        <td v-for="(day, index) in this.calendar.days" :key="'day-cell-' + index" :style="{ color: day.color, 'background-color': day.bgColor }" class="day-cell">{{ day.label }}</td>
       </tr>
     </thead>
+    <tbody>
+      <tr v-for="(task, index) in items" :key="'task-' + index">
+        <td>{{ index + 1 }}</td>
+        <td>{{ task.category }}</td>
+        <td>{{ task.title }}</td>
+        <td>{{ parseDateFormatter(task.startDate, 'yyyy-MM-dd') }}</td>
+        <td>{{ parseDateFormatter(task.endDate, 'yyyy-MM-dd') }}</td>
+        <td></td>
+        <td v-for="(day, index) in calendar.days" :key="'day-cell-' + index" :class="getCellClassName(day, task)"></td>
+      </tr>
+    </tbody>
   </table>
 </template>
 
 <script>
+import DateUtils from '@/modules/DateUtils'
+import DateFormatter from '@/modules/DateFormatter'
 export default {
   name: 'TimelineFragment',
-  props: ['fromMonth', 'toMonth'],
+  props: ['fromMonth', 'toMonth', 'items'],
   data: () => {
     return {
       calendar: {
-        width: 0,
-        height: 59.5,
-        startDate: undefined,
-        endDate: undefined,
         months: [],
         days: [],
         cellWidth: 25
@@ -44,20 +53,26 @@ export default {
     }
   },
   methods: {
-    initialize: function () {
-      // let startDate = new Date(this.fromMonth.substring(0, 4), this.fromMonth.substring(4), 0)
-      // let endDate = new Date(this.toMonth.substring(0, 4), this.toMonth.substring(4), 0)
-    },
     parseMonthFormatter: function (month) {
       return month < 10 ? '0' + month : month
     },
     parseDayFormatter: function (day) {
       return day < 10 ? '0' + day : day
-    }
-  },
-  watch: {
-    fromMonth: function (from, to) {
-      console.log('fromMonth', from, to)
+    },
+    parseDateFormatter: function (date, format) {
+      return DateFormatter.parseFromString(date, 'yyyy-MM-dd')
+    },
+    getCellClassName: function (day, task) {
+      const today = DateUtils.getTodayValue()
+      if (day.value === today) {
+        return 'task-cell-today'
+      } else if (task.startDate <= day.value && day.value <= task.endDate) {
+        return 'task-cell-active'
+      } else if (day.dayOfMonth === 0 || day.dayOfMonth === 6) {
+        return 'task-cell-holiday'
+      } else {
+        return 'task-cell-blank'
+      }
     }
   },
   beforeMount: function () {
@@ -65,28 +80,25 @@ export default {
     this.calendar.endDate = new Date(this.toMonth.substring(0, 4), this.toMonth.substring(4), 0)
 
     for (let cursor = this.calendar.startDate; cursor <= this.calendar.endDate;) {
-      const monthWidth = this.calendar.cellWidth * cursor.getDate()
       this.calendar.months.push({
-        left: this.calendar.width,
-        width: monthWidth,
         year: cursor.getFullYear(),
         month: cursor.getMonth() + 1,
-        days: cursor.getDate(),
-        label: cursor.getFullYear() + '-' + this.parseMonthFormatter(cursor.getMonth() + 1)
+        days: cursor.getDate() + 1,
+        label: cursor.getFullYear() + '-' + DateUtils.getMonthWithPad(cursor)
       })
-      this.calendar.days.push(...Array.from({ length: cursor.getDate() }, (v, k) => {
+      this.calendar.days.push(...Array.from({ length: cursor.getDate() + 1 }, (v, k) => {
         const day = new Date(cursor.getFullYear(), cursor.getMonth(), k + 1)
+        const dayOfMonth = day.getDay()
         return {
           label: k + 1,
-          width: this.calendar.cellWidth,
           value: cursor.getFullYear() + '' + this.parseMonthFormatter(cursor.getMonth() + 1) + '' + this.parseDayFormatter(k + 1),
-          color: day.getDay() === 0 ? 'red' : day.getDay() === 6 ? 'blue' : 'black',
-          bgColor: day.getDay() === 0 || day.getDay() === 6 ? 'lightgrey' : 'transparent'
+          dayOfMonth: dayOfMonth,
+          color: dayOfMonth === 0 ? 'red' : dayOfMonth === 6 ? 'blue' : 'black',
+          bgColor: dayOfMonth === 0 || dayOfMonth === 6 ? '#E7E7E7' : '#FFFFFF'
         }
       }))
-      this.calendar.width += monthWidth
       cursor.setMonth(cursor.getMonth() + 2)
-      cursor.setDate(0)
+      cursor.setDate(-1)
     }
   }
 }
@@ -95,17 +107,109 @@ export default {
 <style lang="scss" scoped>
 table {
   table-layout: fixed;
-  border-collapse: collapse;
-  td {
-    border: 1px solid black;
-    font-size: 14px;
-    text-align: center;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 0;
+  thead {
+    position: sticky;
+    top: 70px;
+    z-index: 3;
+    tr {
+      td {
+        border-bottom: 2px solid var(--primary-color);
+        // border-right: 2px solid var(--primary-color);
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        background-color: #FFFFFF;
 
-    &:first-child {
-      border-left: 0;
+        &:last-child {
+          border-right: 0;
+        }
+      }
+      &:first-child {
+        td {
+          border-top: 2px solid var(--primary-color);
+
+          &:nth-child(2) {
+            position: sticky;
+            left: 0;
+            z-index: 2;
+          }
+          &:nth-child(3) {
+            position: sticky;
+            left: 110px;
+            z-index: 2;
+          }
+
+          &:nth-child(6) {
+            border-right: 2px solid var(--primary-color);
+            position: sticky;
+            left: 410px;
+            z-index: 2;
+          }
+
+          &.month-cell {
+            border-right: 1px solid var(--primary-color);
+          }
+        }
+      }
+      &:not(:first-child) {
+        td {
+          border-right: 1px solid var(--primary-color);
+        }
+      }
     }
-    &:last-child {
-      border-right: 0;
+  }
+  tbody {
+    z-index: 1;
+    tr {
+      td {
+        border-bottom: 1px solid var(--primary-color);
+        border-right: 1px dashed var(--primary-color);
+        text-align: center;
+        font-size: 14px;
+        background-color: #FFFFFF;
+        padding: 5px 0;
+
+        &:last-child {
+          border-right: 0;
+        }
+
+        &:nth-child(2) {
+          position: sticky;
+          left: 0;
+          z-index: 2;
+        }
+
+        &:nth-child(3) {
+          position: sticky;
+          left: 110px;
+          z-index: 2;
+          text-align: left;
+          padding: 5px;
+        }
+
+        &:nth-child(6) {
+          position: sticky;
+          left: 410px;
+          z-index: 2;
+          border-right: 2px solid var(--primary-color);
+        }
+
+        &.task-cell-today {
+          background-color: #FFF990;
+        }
+        &.task-cell-active {
+          background-color: var(--secondary-color);
+        }
+        &.task-cell-holiday {
+          background-color: #E7E7E7;
+        }
+        &.task-cell-blank {
+          background-color: transparent;
+        }
+      }
     }
   }
 }
