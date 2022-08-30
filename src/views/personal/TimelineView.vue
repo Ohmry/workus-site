@@ -19,8 +19,9 @@ export default {
   },
   data: () => {
     return {
-      fromMonth: '202208',
-      toMonth: '202210'
+      fromMonth: '202201',
+      toMonth: '202210',
+      tasks: []
     }
   },
   methods: {

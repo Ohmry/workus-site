@@ -1,29 +1,14 @@
 <template>
-  <table>
-    <colgroup>
-      <col style="min-width: 40px" />
-      <col style="min-width: 110px;" />
-      <col style="min-width: 300px" />
-      <col style="min-width: 110px;" />
-      <col style="min-width: 110px;" />
-      <col style="min-width: 110px;" />
-      <col v-for="(day, index) in this.calendar.days" :key="'col-' + index" :style="{ 'min-width': calendar.cellWidth + 'px' }" />
-    </colgroup>
-    <thead>
-      <tr>
-        <td rowspan="2">순번</td>
-        <td rowspan="2">구분</td>
-        <td rowspan="2">작업</td>
-        <td rowspan="2">시작일자</td>
-        <td rowspan="2">종료일자</td>
-        <td rowspan="2">담당자</td>
-        <td v-for="(month, index) in this.calendar.months" :key="'month-cell-' + index" :colspan="month.days">{{ month.label }}</td>
-      </tr>
-      <tr>
-        <td v-for="(day, index) in this.calendar.days" :key="'day-cell-' + index" :style="{ color: day.color, 'background-color': day.bgColor }">{{ day.label }}</td>
-      </tr>
-    </thead>
-  </table>
+  <svg :width="this.calendar.width" height="60">
+    <line x1="0" :x2="this.calendar.width" y1="0.5" y2="0.5" stroke-width="1" stroke="#26B2A2" />
+    <line x1="0" :x2="this.calendar.width" y1="29.5" y2="29.5" stroke-width="1" stroke="#26B2A2" />
+    <line x1="0" :x2="this.calendar.width" y1="59.5" y2="59.5" stroke-width="1" stroke="#26B2A2" />
+    <line :x1="this.calendar.width" :x2="this.calendar.width" y1="0" :y2="this.calendar.height" stroke-width="1" stroke="#26B2A2" />
+    <line v-for="(month) in this.calendar.months" :key="month.value" :x1="month.left + month.width" :x2="month.left + month.width" y1="0.5" y2="29.5" stroke-width="1" stroke="#26B2A2" />
+    <line v-for="(day, index) in this.calendar.days" :key="day.value" :x1="(index + 1) * day.width" :x2="(index + 1) * day.width" y1="29.5" y2="59.5" stroke-width="1" stroke="#26B2A2" />
+    <text v-for="(month) in this.calendar.months" :key="month.value" :x="month.left + (month.width / 2)" :y="29.5/2" font-size="14">{{ month.label }}</text>
+    <text v-for="(day, index) in this.calendar.days" :key="'day-text-' + index" :x="(index * day.width) + ((day.width - day.textWidth) / 2)" :y="(60.5 - 30.5) + 19" textLength="15px" font-size="14">{{ day.label }}</text>
+  </svg>
 </template>
 
 <script>
@@ -39,7 +24,7 @@ export default {
         endDate: undefined,
         months: [],
         days: [],
-        cellWidth: 25
+        cellWidth: 30
       }
     }
   },
@@ -53,6 +38,55 @@ export default {
     },
     parseDayFormatter: function (day) {
       return day < 10 ? '0' + day : day
+    },
+    getTextWidth: function (text) {
+      switch (text) {
+        case 1:
+          return 6.14
+        case 2:
+          return 8.22
+        case 5:
+          return 8.36
+        case 7:
+          return 8
+        case 3:
+        case 4:
+        case 6:
+        case 8:
+        case 9:
+          return 9
+        case 13:
+        case 23:
+          return 15.36
+        case 14:
+        case 24:
+          return 15.25
+        case 16:
+        case 19:
+        case 26:
+          return 15.41
+        case 17:
+        case 27:
+          return 15.27
+        case 18:
+        case 28:
+          return 15.5
+        case 29:
+          return 15.41
+        case 10:
+        case 11:
+        case 12:
+        case 15:
+        case 20:
+        case 21:
+        case 22:
+        case 25:
+        case 30:
+        case 31:
+          return 15
+        default:
+          return 0
+      }
     }
   },
   watch: {
@@ -71,7 +105,6 @@ export default {
         width: monthWidth,
         year: cursor.getFullYear(),
         month: cursor.getMonth() + 1,
-        days: cursor.getDate(),
         label: cursor.getFullYear() + '-' + this.parseMonthFormatter(cursor.getMonth() + 1)
       })
       this.calendar.days.push(...Array.from({ length: cursor.getDate() }, (v, k) => {
@@ -79,6 +112,7 @@ export default {
         return {
           label: k + 1,
           width: this.calendar.cellWidth,
+          textWidth: this.getTextWidth(k + 1),
           value: cursor.getFullYear() + '' + this.parseMonthFormatter(cursor.getMonth() + 1) + '' + this.parseDayFormatter(k + 1),
           color: day.getDay() === 0 ? 'red' : day.getDay() === 6 ? 'blue' : 'black',
           bgColor: day.getDay() === 0 || day.getDay() === 6 ? 'lightgrey' : 'transparent'
@@ -88,25 +122,12 @@ export default {
       cursor.setMonth(cursor.getMonth() + 2)
       cursor.setDate(0)
     }
+
+    console.log(this.calendar.days)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-table {
-  table-layout: fixed;
-  border-collapse: collapse;
-  td {
-    border: 1px solid black;
-    font-size: 14px;
-    text-align: center;
 
-    &:first-child {
-      border-left: 0;
-    }
-    &:last-child {
-      border-right: 0;
-    }
-  }
-}
 </style>
