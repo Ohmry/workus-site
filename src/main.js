@@ -29,7 +29,9 @@ import {
 import {
   faUser,
   faKeyboard,
-  faComment
+  faComment,
+  faFolder,
+  faFile
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
@@ -46,7 +48,9 @@ library.add(
   faBookBookmark,
   faUserGroup,
   faFilter,
-  faComment
+  faComment,
+  faFolder,
+  faFile
 )
 
 library.add(

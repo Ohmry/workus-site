@@ -4,7 +4,7 @@
       <header>
         <h2>업무목록</h2>
         <div class="search-box-container">
-          <font-awesome-icon icon="fa-solid fa-magnifying-glass" data-type="alarm"></font-awesome-icon>
+          <font-awesome-icon icon="fa-solid fa-magnifying-glass"></font-awesome-icon>
           <input class="search-box" type="text" />
         </div>
         <button @click="openNewTaskPopup">새로운 업무</button>

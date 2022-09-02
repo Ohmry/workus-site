@@ -19,16 +19,43 @@ export default {
   },
   data: () => {
     return {
-      fromMonth: '202201',
-      toMonth: '202210',
+      fromMonth: '',
+      toMonth: '',
       tasks: []
     }
   },
   beforeMount: function () {
-    this.tasks = this.$store.state.tasks
+    this.tasks = []
+    this.fromMonth = ''
+    this.toMonth = ''
+    this.$store.state.tasks.forEach(task => {
+      task.isSubTask = false
+      task.hasSubTask = true
+      console.log(this.fromMonth, task.startDate)
+      if (this.fromMonth === '') {
+        this.fromMonth = task.startDate
+      } else if (parseInt(this.fromMonth) > parseInt(task.startDate)) {
+        this.fromMonth = task.startDate
+      }
+      if (this.toMonth === '') {
+        this.toMonth = task.endDate
+      } else if (parseInt(this.toMonth) > parseInt(task.endDate)) {
+        this.toMonth = task.endDate
+      }
+      this.tasks.push(task)
+      if (Array.isArray(task.subTasks) && task.subTasks.length > 0) {
+        task.subTasks.forEach(subTask => {
+          subTask.isSubTask = true
+          subTask.hasSubTask = false
+          this.tasks.push(subTask)
+        })
+      }
+    })
+    this.fromMonth = this.fromMonth.substring(0, 6)
+    this.toMonth = this.toMonth.substring(0, 6)
   },
   mounted: function () {
-    this.$refs.container.scrollTo(300, 0)
+    // this.$refs.container.scrollTo(300, 0)
   }
 }
 </script>

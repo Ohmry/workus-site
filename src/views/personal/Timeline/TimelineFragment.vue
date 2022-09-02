@@ -27,11 +27,18 @@
       <tr v-for="(task, index) in items" :key="'task-' + index">
         <td>{{ index + 1 }}</td>
         <td>{{ task.category }}</td>
-        <td>{{ task.title }}</td>
+        <td :class="{ 'cell-subTask': task.isSubTask }">
+          <font-awesome-icon icon="fa-regular fa-folder" v-if="task.hasSubTask"></font-awesome-icon>
+          <span v-if="!task.hasSubTask">- </span>
+          {{ task.title }}
+        </td>
         <td>{{ parseDateFormatter(task.startDate, 'yyyy-MM-dd') }}</td>
         <td>{{ parseDateFormatter(task.endDate, 'yyyy-MM-dd') }}</td>
         <td></td>
-        <td v-for="(day, index) in calendar.days" :key="'day-cell-' + index" :class="getCellClassName(day, task)"></td>
+        <td v-for="(day, index) in calendar.days" :key="'day-cell-' + index">
+          <div :class="getCellClassName(day, task)"></div>
+        </td>
+        <!-- <td v-for="(day, index) in calendar.days" :key="'day-cell-' + index" :class="getCellClassName(day, task)"></td> -->
       </tr>
     </tbody>
   </table>
@@ -66,12 +73,21 @@ export default {
       const today = DateUtils.getTodayValue()
       if (day.value === today) {
         return 'task-cell-today'
+      } else if (task.startDate <= day.value && day.value <= task.endDate && task.isSubTask) {
+        return 'task-cell-active-sub'
       } else if (task.startDate <= day.value && day.value <= task.endDate) {
         return 'task-cell-active'
       } else if (day.dayOfMonth === 0 || day.dayOfMonth === 6) {
         return 'task-cell-holiday'
       } else {
         return 'task-cell-blank'
+      }
+    },
+    getTaskIcon: function (task) {
+      if (task.hasSubTask) {
+        return 'fa-regular fa-folder'
+      } else {
+        return 'fa-regular fa-file'
       }
     }
   },
@@ -80,6 +96,7 @@ export default {
     this.calendar.endDate = new Date(this.toMonth.substring(0, 4), this.toMonth.substring(4), 0)
 
     for (let cursor = this.calendar.startDate; cursor <= this.calendar.endDate;) {
+      console.log('before cursor', cursor)
       this.calendar.months.push({
         year: cursor.getFullYear(),
         month: cursor.getMonth() + 1,
@@ -97,9 +114,11 @@ export default {
           bgColor: dayOfMonth === 0 || dayOfMonth === 6 ? '#E7E7E7' : '#FFFFFF'
         }
       }))
+      cursor.setDate(1)
       cursor.setMonth(cursor.getMonth() + 2)
       cursor.setDate(-1)
     }
+    console.log(this.calendar.months)
   }
 }
 </script>
@@ -170,7 +189,8 @@ table {
         text-align: center;
         font-size: 14px;
         background-color: #FFFFFF;
-        padding: 5px 0;
+        padding: 0;
+        height: 20px;
 
         &:last-child {
           border-right: 0;
@@ -187,7 +207,15 @@ table {
           left: 110px;
           z-index: 2;
           text-align: left;
-          padding: 5px;
+          padding: 5px 10px;
+
+          svg {
+            padding: 0 3px 0 0;
+          }
+
+          &.cell-subTask {
+            padding: 5px 20px;
+          }
         }
 
         &:nth-child(6) {
@@ -197,17 +225,23 @@ table {
           border-right: 2px solid var(--primary-color);
         }
 
-        &.task-cell-today {
-          background-color: #FFF990;
-        }
-        &.task-cell-active {
-          background-color: var(--secondary-color);
-        }
-        &.task-cell-holiday {
-          background-color: #E7E7E7;
-        }
-        &.task-cell-blank {
-          background-color: transparent;
+        div {
+          height: 100%;
+          &.task-cell-today {
+            background-color: #FFE894;
+          }
+          &.task-cell-active {
+            background-color: var(--secondary-color);
+          }
+          &.task-cell-active-sub {
+            background-color: #FFC0CA;
+          }
+          &.task-cell-holiday {
+            background-color: #E7E7E7;
+          }
+          &.task-cell-blank {
+            background-color: transparent;
+          }
         }
       }
     }

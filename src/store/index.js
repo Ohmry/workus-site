@@ -31,7 +31,38 @@ export default new Vuex.Store({
           }
         ],
         importance: 'HIGH',
-        comment: 15
+        comment: 15,
+        subTasks: [
+          {
+            id: 11,
+            parent: 1,
+            title: '기획/설계',
+            system: '기획',
+            startDate: '20220830',
+            endDate: '20220831',
+            managers: [
+              {
+                name: '강찬미C'
+              },
+              {
+                name: '황남익K'
+              }
+            ]
+          },
+          {
+            id: 12,
+            parent: 1,
+            title: 'TCS 개발',
+            system: '개발',
+            startDate: '20220901',
+            endDate: '20220915',
+            managers: [
+              {
+                name: '이병훈D'
+              }
+            ]
+          }
+        ]
       },
       {
         id: 2,
