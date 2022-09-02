@@ -23,7 +23,11 @@ import {
   faCube,
   faBookBookmark,
   faUserGroup,
-  faFilter
+  faFilter,
+  faDisplay,
+  faList,
+  faChartGantt,
+  faTableColumns
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -50,7 +54,11 @@ library.add(
   faFilter,
   faComment,
   faFolder,
-  faFile
+  faFile,
+  faDisplay,
+  faList,
+  faChartGantt,
+  faTableColumns
 )
 
 library.add(

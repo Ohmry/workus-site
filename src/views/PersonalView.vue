@@ -20,10 +20,10 @@ export default {
     return {
       mypage: {
         menus: [
-          { label: '요약', uri: '/personal/overview' },
-          { label: '업무목록', uri: '/personal/list' },
-          { label: '진행상황별 보기', uri: '/personal/board' },
-          { label: '시간대별 보기', uri: '/personal/timeline' }
+          { label: '요약', uri: '/personal/overview', icon: 'fa-solid fa-display' },
+          { label: '업무목록', uri: '/personal/list', icon: 'fa-solid fa-list' },
+          { label: '진행상황별 보기', uri: '/personal/board', icon: 'fa-solid fa-table-columns' },
+          { label: '시간대별 보기', uri: '/personal/timeline', icon: 'fa-solid fa-chart-gantt' }
         ],
         newTask: {
           popup: {

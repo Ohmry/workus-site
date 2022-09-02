@@ -9,8 +9,11 @@
             :to="menu.uri"
           >
             <button>
-              {{ menu.label }}
+              <font-awesome-icon :icon="menu.icon"></font-awesome-icon>
             </button>
+            <div class="menu-tooltip">
+              {{ menu.label }}
+            </div>
           </router-link>
         </li>
       </ul>
@@ -27,9 +30,10 @@ export default {
 
 <style lang="scss" scoped>
 aside {
-    width: 200px;
-    min-width: 200px;
+    width: 50px;
+    min-width: 50px;
     border-right: 1px solid var(--secondary-color);
+    z-index: 99;
 
     nav {
       padding: 10px 0 0 0;
@@ -42,10 +46,11 @@ aside {
           a {
             button {
               width: 100%;
+              height: 50px;
               border: 0;
-              padding: 15px 30px;
-              text-align: right;
+              text-align: center;
               outline: none;
+              font-size: 18px;
               background-color: transparent;
               color: black;
 
@@ -59,6 +64,18 @@ aside {
               button {
                 background-color: #FFA2B0;
               }
+            }
+
+            div.menu-tooltip {
+              position: absolute;
+              left: 60px;
+              background-color: rgba(0, 0, 0, 0.5);
+              padding: 10px;
+              white-space: nowrap;
+              color: white;
+              border-radius: 10px;
+              margin-top: -45px;
+              display: none;
             }
           }
         }

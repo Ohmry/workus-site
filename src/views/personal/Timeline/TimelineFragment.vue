@@ -96,7 +96,6 @@ export default {
     this.calendar.endDate = new Date(this.toMonth.substring(0, 4), this.toMonth.substring(4), 0)
 
     for (let cursor = this.calendar.startDate; cursor <= this.calendar.endDate;) {
-      console.log('before cursor', cursor)
       this.calendar.months.push({
         year: cursor.getFullYear(),
         month: cursor.getMonth() + 1,
@@ -118,7 +117,6 @@ export default {
       cursor.setMonth(cursor.getMonth() + 2)
       cursor.setDate(-1)
     }
-    console.log(this.calendar.months)
   }
 }
 </script>
@@ -136,11 +134,14 @@ table {
     tr {
       td {
         border-bottom: 2px solid var(--primary-color);
-        // border-right: 2px solid var(--primary-color);
         text-align: center;
         font-size: 14px;
-        font-weight: bold;
+        // font-weight: bold;
         background-color: #FFFFFF;
+
+        &:first-child {
+          font-weight: bold;
+        }
 
         &:last-child {
           border-right: 0;
@@ -150,21 +151,37 @@ table {
         td {
           border-top: 2px solid var(--primary-color);
 
-          &:nth-child(2) {
-            position: sticky;
-            left: 0;
-            z-index: 2;
+          &:nth-child(1),
+          &:nth-child(2),
+          &:nth-child(3),
+          &:nth-child(4),
+          &:nth-child(5),
+          &:nth-child(6) {
+            font-weight: bold;
           }
+
           &:nth-child(3) {
             position: sticky;
-            left: 110px;
+            left: 0px;
+            z-index: 2;
+          }
+
+          &:nth-child(4) {
+            position: sticky;
+            left: 300px;
+            z-index: 2;
+          }
+
+          &:nth-child(5) {
+            position: sticky;
+            left: 410px;
             z-index: 2;
           }
 
           &:nth-child(6) {
             border-right: 2px solid var(--primary-color);
             position: sticky;
-            left: 410px;
+            left: 520px;
             z-index: 2;
           }
 
@@ -196,15 +213,9 @@ table {
           border-right: 0;
         }
 
-        &:nth-child(2) {
-          position: sticky;
-          left: 0;
-          z-index: 2;
-        }
-
         &:nth-child(3) {
           position: sticky;
-          left: 110px;
+          left: 0px;
           z-index: 2;
           text-align: left;
           padding: 5px 10px;
@@ -218,9 +229,21 @@ table {
           }
         }
 
-        &:nth-child(6) {
+        &:nth-child(4) {
+          position: sticky;
+          left: 300px;
+          z-index: 2;
+        }
+
+        &:nth-child(5) {
           position: sticky;
           left: 410px;
+          z-index: 2;
+        }
+
+        &:nth-child(6) {
+          position: sticky;
+          left: 520px;
           z-index: 2;
           border-right: 2px solid var(--primary-color);
         }
