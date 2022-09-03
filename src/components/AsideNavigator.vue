@@ -69,13 +69,34 @@ aside {
             div.menu-tooltip {
               position: absolute;
               left: 60px;
-              background-color: rgba(0, 0, 0, 0.5);
+              background-color: rgba(85, 85, 85, 0.8);
               padding: 10px;
               white-space: nowrap;
               color: white;
               border-radius: 10px;
               margin-top: -45px;
-              display: none;
+              opacity: 0;
+              pointer-events: none;
+
+              &:before {
+                content: '';
+                height: 0;
+                width: 0;
+                top: 10px;
+                left: -8px;
+                position: absolute;
+                border: 8px solid transparent;
+                border-left-width: 0;
+                border-right-color: rgba(85, 85, 85, 0.8);
+              }
+            }
+
+            &:hover {
+              div.menu-tooltip {
+                opacity: 1;
+                transition: opacity 0.25s ease;
+                transition-delay: 0.3s;
+              }
             }
           }
         }
