@@ -31,7 +31,6 @@ export default {
     this.$store.state.tasks.forEach(task => {
       task.isSubTask = false
       task.hasSubTask = true
-      console.log(this.fromMonth, task.startDate)
       if (this.fromMonth === '') {
         this.fromMonth = task.startDate
       } else if (parseInt(this.fromMonth) > parseInt(task.startDate)) {

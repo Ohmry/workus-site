@@ -100,7 +100,7 @@ export default new Vuex.Store({
         title: '쿠폰정책관리 기능 개선',
         requester: '이은지K',
         requestDepartment: '마케팅팀',
-        startDate: '20220701',
+        startDate: '20220711',
         endDate: '20220914',
         progress: 'TESTING',
         percentage: 80,
